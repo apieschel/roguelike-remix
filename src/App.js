@@ -117,6 +117,7 @@ class App extends React.Component {
 		this.generateMap = this.generateMap.bind(this);
 		this.updateMap = this.updateMap.bind(this);
 		this.handleKeyPress = this.handleKeyPress.bind(this);
+    this.handleAI = this.handleAI.bind(this);
 		this.handleBattle = this.handleBattle.bind(this);
 		this.handleDeath = this.handleDeath.bind(this);
 		this.handleSound = this.handleSound.bind(this);
@@ -993,6 +994,503 @@ class App extends React.Component {
 	}
 
 	}
+  
+  
+  
+  
+  
+  
+  // Function to handle AI:
+	handleAI(event) {
+
+		// Check target location to see if there is an item there, if so, handle the challenge:
+		var checkLocationForItem = function(locationObj) {
+			var a = [];
+			for (var key in skills) {
+				a.push(key);
+			}
+			// Add attack  and exp points if user picks up an item based on current attack and exp points:
+			var raiseAttack = function() {
+					var currentAttack = this.state.attackPower;
+					var newAttack;
+					var currentHP = this.state.life;
+					var newHP;
+					if (currentAttack < 100) { newAttack = currentAttack + 15; newHP = currentHP + (150 - Math.round(Math.random() * 50)); }
+					else if (currentAttack < 250) { newAttack = currentAttack + 25; newHP = currentHP + (300 - Math.round(Math.random() * 150)); }
+					else if (currentAttack < 500) { newAttack = currentAttack + 75; newHP = currentHP + (500 - Math.round(Math.random() * 200)); }
+					else if (currentAttack < 1000) { newAttack = currentAttack + 125; newHP = currentHP + (600 - Math.round(Math.random() * 500)); }
+					else if (currentAttack >= 1000) { newAttack = currentAttack + 150; newHP = currentHP + (800 - Math.round(Math.random() * 600)); }
+					var experience = this.state.experience;
+					var newExp = +experience + ( 5000 - Math.round(Math.random() * 2500) );
+					this.setState({
+						attackPower: newAttack,
+						experience: newExp,
+						life: newHP
+					});
+			}.bind(this);
+			for (var i = 0; i < a.length; i++) {
+				if (a[i] === locationObj.cellType) {
+					raiseAttack();
+					if (this.state.skillItems.length <= 23) {
+						if (this.state.sound) { newItemSound.play(); }
+					}
+					return true; }
+			}
+			return false;
+		}.bind(this);
+
+		// Check target location to see if there is a challenge there, if so, handle the challenge:
+		function checkLocationForChallenge(locationObj) {
+			var cell = locationObj.cellType;
+			if (cell === 'front' || cell === 'viz' || cell === 'back'){
+				return true;
+			}
+			else if (cell === 'boss') {
+				return true;
+			}
+			else return false;
+		}
+
+		// Calculate parameters for battle function if player encounters a challenge:
+		var attemptChallenge = function(locationObj, newLocation) {
+
+			var challenge = locationObj.cellType;
+			var attack = this.state.attackPower;
+			var userHealth = this.state.life;
+			var damage, challengeHP, challengeID;
+
+			if (challenge === 'front') {
+
+				var currentChallenges = this.state.frontEndChallenges.slice();
+				var check = 0;
+
+				for (var a = 0; a < currentChallenges.length; a++) {
+					if (currentChallenges[a] === newLocation) {
+						challengeID = a * 1;
+						check = 1;
+						break;
+					}
+					else {
+						check = 0;
+					}
+				}
+
+				if (check === 0) {
+					currentChallenges[currentChallenges.length] = newLocation;
+					challengeID = (currentChallenges.length - 1) * 1;
+				}
+
+				this.setState({
+					frontEndChallenges: currentChallenges
+				});
+
+				damage = 600 - Math.round(Math.random() * 200); // Damage for front end challenge
+				if (this.handleBattle(challengeID, damage, userHealth, attack)) {
+					return true;
+				}
+			}
+
+			else if (challenge === 'viz') {
+				var currentChallenges = this.state.dataVizChallenges.slice();
+				var check = 0;
+
+				for (var a = 0; a < currentChallenges.length; a++) {
+					if (currentChallenges[a] === newLocation) {
+						challengeID = a + 10;
+						check = 1;
+						break;
+					}
+					else {
+						check = 0;
+					}
+				}
+
+				if (check === 0) {
+					currentChallenges[currentChallenges.length] = newLocation;
+					challengeID = (currentChallenges.length - 1) + 10;
+				}
+
+				this.setState({
+					dataVizChallenges: currentChallenges
+				});
+				damage = 2500 - Math.round(Math.random() * 1000); // Damage for data viz challenge
+				if (this.handleBattle(challengeID, damage, userHealth, attack)) {
+					return true;
+				}
+
+			}
+			else if (challenge === 'back') {
+				var currentChallenges = this.state.backEndChallenges.slice();
+				var check = 0;
+
+				for (var a = 0; a < currentChallenges.length; a++) {
+					if (currentChallenges[a] === newLocation) {
+						challengeID = a + 100;
+						check = 1;
+						break;
+					}
+					else {
+						check = 0;
+					}
+				}
+
+				if (check === 0) {
+					currentChallenges[currentChallenges.length] = newLocation;
+					challengeID = (currentChallenges.length - 1) + 100;
+				}
+
+				this.setState({
+					backEndChallenges: currentChallenges
+				});
+				damage = 7500 - Math.round(Math.random() * 3000); // Damage for back end challenge
+				if (this.handleBattle(challengeID, damage, userHealth, attack)) {
+					return true;
+				}
+
+			}
+			else if (challenge === 'boss') {
+				challengeID = 'boss';
+				damage = 100000 - Math.round(Math.random() * 50000); // Damage for boss
+				if (this.handleBattle(challengeID, damage, userHealth, attack)) {
+					console.log('The player wins!');
+				}
+
+			}
+		}.bind(this);
+
+		var currentMap = this.state.map.slice();
+		var offset = this.state.offset;
+		var userLocation = this.state.userLocation;
+    var arrow;
+    
+    if (event === 37) { arrow = 37 }
+    else if (event === 38) { arrow = 38 }
+    else if (event === 39) { arrow = 39 }
+    else if (event === 40) { arrow = 40 }
+
+    else { arrow = event.keyCode; event.preventDefault(); }
+
+		// Functions to handle movement; there are four functions which are basically identical:
+
+		// Move Left:
+		if (arrow === 37) {
+
+			// Prevent arrow key from scrolling the page:
+			
+
+			// If player dies, prevent further movement:
+			if (this.state.playing) {
+
+			var newLocation = userLocation - 1;
+
+			// Calculate new location for player if the cell is empty:
+			if (currentMap[newLocation].cellType === 0) {
+				currentMap[userLocation].user = 0;
+				currentMap[newLocation].user = 1;
+				offset = offset - 1;
+				this.updateMap(currentMap, newLocation, offset);
+			}
+
+			// If the cells is not empty, check is there is an item there, if there is, acquire the item and add it to the items array; then update the map:
+			else if (checkLocationForItem(currentMap[newLocation])) {
+				var currentSkills = this.state.skillItems.slice();
+				currentSkills[currentSkills.length] = skills[currentMap[newLocation].cellType][0];
+				
+				this.setState({
+					header: skills[currentMap[newLocation].cellType][1],
+					skillItems: currentSkills
+				});
+
+				if (this.state.skillItems.length === 25) {
+					setTimeout(function() {
+						var attackLevel = this.state.attackPower;
+						var exp = this.state.experience;
+						var lifeHP = this.state.life;
+						var level = this.state.level;
+						if (this.state.sound) { bonusSound.play(); }
+						this.setState({
+							header: 'You\'ve mastered all the skills! Your coding abilities are now overpowered!',
+							attackPower: attackLevel + 2500,
+							experience: exp + 15000,
+							life: lifeHP + 15000,
+							level: level + 50
+						});
+					}.bind(this), 250);
+				};
+
+				currentMap[userLocation].user = 0;
+				currentMap[newLocation].user = 1;
+				currentMap[newLocation].cellType = 0;
+				offset = offset - 1;
+				this.updateMap(currentMap, newLocation, offset);
+
+			}
+
+			// If it is not an item, there should be a challenge; handle the challenge:
+			else if (checkLocationForChallenge(currentMap[newLocation])) {
+
+				if (attemptChallenge(currentMap[newLocation], newLocation)) {
+					currentMap[userLocation].user = 0;
+					currentMap[newLocation].user = 1;
+					currentMap[newLocation].cellType = 0;
+					offset = offset - 1;
+					this.updateMap(currentMap, newLocation, offset);
+
+				}
+			}
+		}
+
+		}
+		// Move Up:
+		else if (arrow === 38) {
+
+			if (this.state.playing) {
+
+			var newLocation = userLocation - 20;
+
+			if (newLocation >= 0) {
+
+				if (currentMap[newLocation].cellType === 0) {
+
+					if (offset > 120) {
+						offset = offset - 20;
+					}
+					else if (newLocation <= 130) {
+						offset = newLocation;
+					}
+
+					currentMap[userLocation].user = 0;
+					currentMap[newLocation].user = 1;
+					
+					this.updateMap(currentMap, newLocation, offset);
+
+				}
+				
+				else if (checkLocationForItem(currentMap[newLocation])) {
+					var currentSkills = this.state.skillItems.slice();
+					currentSkills[currentSkills.length] = skills[currentMap[newLocation].cellType][0];
+					
+					this.setState({
+						header: skills[currentMap[newLocation].cellType][1],
+						skillItems: currentSkills
+					});
+
+					if (this.state.skillItems.length === 25) {
+						setTimeout(function() {
+							var attackLevel = this.state.attackPower;
+							var exp = this.state.experience;
+							var lifeHP = this.state.life;
+							var level = this.state.level;	
+							if (this.state.sound) { bonusSound.play(); }
+							this.setState({
+								header: 'You\'ve mastered all the skills! Your coding abilities are now overpowered!',
+								attackPower: attackLevel + 50000,
+								experience: exp + 15000,
+								life: lifeHP + 100000,
+								level: level + 50
+							});
+						}.bind(this), 250);
+					};
+
+					if (offset > 120) {
+						offset = offset - 20;
+					}
+					else if (newLocation <= 130) {
+						offset = newLocation;
+					}
+
+					currentMap[userLocation].user = 0;
+					currentMap[newLocation].user = 1;
+					currentMap[newLocation].cellType = 0;
+					
+					this.updateMap(currentMap, newLocation, offset);
+				}
+
+				else if (checkLocationForChallenge(currentMap[newLocation])) {
+
+					if (attemptChallenge(currentMap[newLocation], newLocation)) {
+						currentMap[userLocation].user = 0;
+						currentMap[newLocation].user = 1;
+						currentMap[newLocation].cellType = 0;
+
+						this.updateMap(currentMap, newLocation, offset);
+
+					}
+
+				}
+
+			}
+
+		}
+
+		}
+		// Move Right
+		else if (arrow === 39) {
+
+			if (this.state.playing) {
+
+			var newLocation = userLocation + 1;
+
+			if (currentMap[newLocation].cellType === 0) {
+
+				currentMap[userLocation].user = 0;
+				currentMap[newLocation].user = 1;
+				currentMap[newLocation].cellType = 0;
+
+				offset = offset + 1;
+
+				this.updateMap(currentMap, newLocation, offset);
+
+			}
+			
+			else if (checkLocationForItem(currentMap[newLocation])) {
+				var currentSkills = this.state.skillItems.slice();
+				currentSkills[currentSkills.length] = skills[currentMap[newLocation].cellType][0];
+				
+				this.setState({
+					header: skills[currentMap[newLocation].cellType][1],
+					skillItems: currentSkills
+				});
+
+				if (this.state.skillItems.length === 25) {
+					setTimeout(function() {
+						var attackLevel = this.state.attackPower;
+						var exp = this.state.experience;
+						var lifeHP = this.state.life;
+						var level = this.state.level;
+						if (this.state.sound) { bonusSound.play(); }
+						this.setState({
+							header: 'You\'ve mastered all the skills! Your coding abilities are now overpowered!',
+							attackPower: attackLevel + 50000,
+							experience: exp + 15000,
+							life: lifeHP + 100000,
+							level: level + 50
+						});
+					}.bind(this), 250);
+				};
+
+				currentMap[userLocation].user = 0;
+				currentMap[newLocation].user = 1;
+				currentMap[newLocation].cellType = 0;
+
+				offset = offset + 1;
+
+				this.updateMap(currentMap, newLocation, offset);
+			}
+
+			else if (checkLocationForChallenge(currentMap[newLocation])) {
+
+				if (attemptChallenge(currentMap[newLocation], newLocation)) {
+					currentMap[userLocation].user = 0;
+					currentMap[newLocation].user = 1;
+					currentMap[newLocation].cellType = 0;
+
+					offset = offset + 1;
+
+					this.updateMap(currentMap, newLocation, offset);
+
+				}
+
+			}
+
+		}
+
+
+		}
+		// Move Down:
+		else if (arrow === 40) {
+
+			if (this.state.playing) {
+
+			var newLocation = userLocation + 20;
+
+			if (newLocation <= 2000) {
+
+				if (currentMap[newLocation].cellType === 0) {
+					
+					if (offset < 120) {
+						offset = offset + 20;
+					}
+					else if (newLocation >= 1870) {
+						offset = 240 - (2000 - newLocation);
+					}
+
+					currentMap[userLocation].user = 0;
+					currentMap[newLocation].user = 1;
+					currentMap[newLocation].cellType = 0;
+
+					this.updateMap(currentMap, newLocation, offset);
+
+				}
+				
+				else if (checkLocationForItem(currentMap[newLocation])) {
+					var currentSkills = this.state.skillItems.slice();
+					currentSkills[currentSkills.length] = skills[currentMap[newLocation].cellType][0];
+					
+					this.setState({
+						header: skills[currentMap[newLocation].cellType][1],
+						skillItems: currentSkills
+					});
+
+					if (this.state.skillItems.length === 25) {
+						setTimeout(function() {
+							var attackLevel = this.state.attackPower;
+							var exp = this.state.experience;
+							var lifeHP = this.state.life;
+							var level = this.state.level;
+							if (this.state.sound) { bonusSound.play(); }
+							this.setState({
+								header: 'You\'ve mastered all the skills! Your coding abilities are now overpowered!',
+								attackPower: attackLevel + 50000,
+								experience: exp + 15000,
+								life: lifeHP + 100000,
+								level: level + 50
+							});
+						}.bind(this), 250);
+					};
+
+					if (offset < 120) {
+						offset = offset + 20;
+					}
+					else if (newLocation >= 1870) {
+						offset = 240 - (2000 - newLocation);
+					}
+
+					currentMap[userLocation].user = 0;
+					currentMap[newLocation].user = 1;
+					currentMap[newLocation].cellType = 0;
+
+					this.updateMap(currentMap, newLocation, offset);
+				}
+
+				else if (checkLocationForChallenge(currentMap[newLocation])) {
+
+					if (attemptChallenge(currentMap[newLocation], newLocation)) {
+						currentMap[userLocation].user = 0;
+						currentMap[newLocation].user = 1;
+						currentMap[newLocation].cellType = 0;
+
+						this.updateMap(currentMap, newLocation, offset);
+
+					}
+
+				}
+
+			}
+
+		}
+
+	}
+
+	}
+  
+  
+  
+  
+  
+  
+  
+  
 	// Generate the map data on component initial render:
 	componentWillMount() {
 		this.generateMap();
@@ -1193,7 +1691,7 @@ class Game extends React.Component {
 
 			// Add user to user grid:
 			if (grid.user === 1) { gridColor = { background: "url('http://i1361.photobucket.com/albums/r662/bonham000/Roguelike/fcc_puck_zps7ddvum7q.png')", backgroundSize: '51px 51px' } }
-      if (grid.goblin === 1) { gridStyle gridColor = { background: 'yellow' } }
+      if (grid.goblin === 1) { gridColor = { background: 'yellow' } }
 			
       if ((i >= 6 && i <= 14) || (i >= 26 && i <= 34) || (i >= 46 && i <= 54) || (i >= 66 && i <= 74) || (i >= 86 && i <= 94) || (i >= 106 && i <= 114)) {
         return (
