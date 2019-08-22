@@ -1,8 +1,6 @@
 import React, { Component } from 'react';
 import logo from './logo.svg';
 import './App.css';
-const addons = require('react/addons');
-const ReactCSSTransitionGroup = addons.CSSTransitionGroup;
 
 // Define sound effects:
 var challengeSound = new Audio('http://soundbible.com/mp3/Computer_Magic-Microsift-1901299923.mp3');
@@ -1018,34 +1016,8 @@ class App extends React.Component {
 					<Game
 						gameMap = {this.state.renderMap} 
             clickMove = {this.handleKeyPress} />
-					<Gameover
-						status = {this.state.playing}
-						replay = {this.state.replay}
-						reset = {this.resetGame} />
 				</div>
 			</div>
-		);
-	}
-};
-
-// Component to handle player's death and replay option:
-class Gameover extends React.Component {
-	render() {
-		var replayComponent;
-		if (this.props.replay) {
-			replayComponent = (
-				<div className="replayPanel" id = "replay">
-					<h1 onClick = {this.props.reset}>Replay?</h1>
-				</div>
-			);
-		}
-		return (
-			<ReactCSSTransitionGroup
-				transitionName = "aboutScreen"
-				transitionEnterTimeout = {500}
-				transitionLeaveTimeout = {1000}>
-				{replayComponent}
-			</ReactCSSTransitionGroup>
 		);
 	}
 };
@@ -1053,9 +1025,10 @@ class Gameover extends React.Component {
 // Initial component to explain game rules and allow player to begin the game:
 class About extends React.Component {
 	render() {
+    
 		var aboutComponent;
 		if (this.props.about) {
-			aboutComponent = (
+			return (
 				<div className = "about" id = "enterPanel">
 					<div className="aboutContainer">
 						<h1>Welcome to freeCodeCamp in <a target = "_blank" href="https://www.freecodecamp.com/challenges/build-a-roguelike-dungeon-crawler-game">Roguelike Dungeon Crawler Form</a></h1>
@@ -1075,16 +1048,6 @@ class About extends React.Component {
 				</div>				
 			);
 		}
-		return (
-			<ReactCSSTransitionGroup
-				transitionName = "aboutScreen"
-				transitionAppear = {true}
-				transitionAppearTimeout = {500}
-				transitionEnterTimeout = {500}
-				transitionLeaveTimeout = {1000}>
-				{aboutComponent}
-			</ReactCSSTransitionGroup>
-		);
 	}
 };
 
@@ -1094,12 +1057,6 @@ class Header extends React.Component {
 		var headerText = this.props.header;
 		return (
 			<div className = "header" id = "headerBar">
-				<ReactCSSTransitionGroup transitionName = "headerChange" transitionEnterTimeout = {1000} transitionLeaveTimeout = {10}>
-					<div key = {headerText.substr(0, 5)} className = 'headerWrapper'>
-						<div id = "headerSpacer"></div>
-						<p id = "headerTitle">{headerText}</p>
-					</div>
-				</ReactCSSTransitionGroup>
 			</div>
 		);
 	}
