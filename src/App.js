@@ -90,7 +90,7 @@ class App extends React.Component {
 		super();
 		this.state = {
 			sound: true,
-			about: true,
+			about: false,
 			replay: false,
 			playing: true,
 			game: 'alive',
@@ -998,9 +998,6 @@ class App extends React.Component {
 	render() {
 		return (
 			<div className = "pageWrapper">
-				<About
-					about = {this.state.about}
-					startGame = {this.startGame} />
 				<Header
 					header = {this.state.header}/>
 				<div className = "gameWrapper">
@@ -1019,35 +1016,6 @@ class App extends React.Component {
 				</div>
 			</div>
 		);
-	}
-};
-
-// Initial component to explain game rules and allow player to begin the game:
-class About extends React.Component {
-	render() {
-    
-		var aboutComponent;
-		if (this.props.about) {
-			return (
-				<div className = "about" id = "enterPanel">
-					<div className="aboutContainer">
-						<h1>Welcome to freeCodeCamp in <a target = "_blank" href="https://www.freecodecamp.com/challenges/build-a-roguelike-dungeon-crawler-game">Roguelike Dungeon Crawler Form</a></h1>
-							<div className = "content">
-								<p>Three certifications stand between you and the final boss. Each certification requires you to master 5 projects, each is harder than the last. You will recognize the projects because they look like this:</p>
-								<div className = "challenges">
-									<img src="http://i1361.photobucket.com/albums/r662/bonham000/Roguelike/front-end_zpsglpvzdlg.png" alt="Front End Challenges"/>
-									<img src="http://i1361.photobucket.com/albums/r662/bonham000/Roguelike/data-viz_zpshjybdrpe.png" alt="Data Viz Challenges"/>
-									<img src="http://i1361.photobucket.com/albums/r662/bonham000/Roguelike/back-end_zpshhvy4hd1.png" alt="Back End Challenges"/>
-								</div>
-								<p className = "challengeNames">Front End — Data Viz&nbsp;&nbsp;—&nbsp;&nbsp;Back End</p>
-								<p>Collect tech skill items to level up your coding skills. Be careful, don't attempt the challenges without leveling up your skills. You can move with the arrow keys. If you think you are ready, click the freeCodeCamp Logo to begin.</p>
-                <p className = "mobileMovement">(If you are on mobile, you can move by pressing on the left, top, right, and bottom areas of the game environment to move in those directions.)</p>
-								<img className = "fccLogo" src = "http://i1361.photobucket.com/albums/r662/bonham000/Roguelike/fcc_puck_zps7ddvum7q.png" alt = "Enter Icon" onClick = {this.props.startGame} />
-							</div>
-						</div>
-				</div>				
-			);
-		}
 	}
 };
 
