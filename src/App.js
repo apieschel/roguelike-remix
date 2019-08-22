@@ -193,6 +193,7 @@ class App extends React.Component {
 		var arr = [];
 
 		var userIndex;
+    var goblinIndex;
 		var initMap = [];
 
 		// Render an array of 2000 items based on specified dimensions:
@@ -204,6 +205,7 @@ class App extends React.Component {
 			if (rand !== 1) { rand = 0; }
 
 			var user = 0;
+      var goblin = 0;
 
 			// Boss and User positions are hard-coded; all other cells are distributed randomly:
 
@@ -212,11 +214,13 @@ class App extends React.Component {
 			else if (a === 68 || a === 69 || a === 88 || a === 89) { rand = 'boss' }
 			// Set user position:
 			else if (a === 1890) { rand = 0; user = 1; userIndex = a;}
+      else if (a === 1891) { rand = 0; goblin = 1; goblinIndex = a;}
 
 			arr[a] = {
 				cellSize: gridWidth,
 				cellType: rand,
-				user: user
+				user: user,
+        goblin: goblin
 			};
 
 		}
@@ -296,6 +300,7 @@ class App extends React.Component {
 
 		this.setState({
 			userLocation: userIndex,
+      goblinLocation: goblinIndex,
 			map: arr,
 			renderMap: initMap
 		});
@@ -1188,6 +1193,7 @@ class Game extends React.Component {
 
 			// Add user to user grid:
 			if (grid.user === 1) { gridColor = { background: "url('http://i1361.photobucket.com/albums/r662/bonham000/Roguelike/fcc_puck_zps7ddvum7q.png')", backgroundSize: '51px 51px' } }
+      if (grid.goblin === 1) { gridStyle gridColor = { background: 'yellow' } }
 			
       if ((i >= 6 && i <= 14) || (i >= 26 && i <= 34) || (i >= 46 && i <= 54) || (i >= 66 && i <= 74) || (i >= 86 && i <= 94) || (i >= 106 && i <= 114)) {
         return (
