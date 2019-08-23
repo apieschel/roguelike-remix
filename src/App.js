@@ -525,13 +525,13 @@ class App extends React.Component {
     console.log(event);
     let speed = this.state.speed;
     if (event.keyCode === 37) {  
-      if (speed < 3000) {
+      if (speed < 1000) {
         speed = speed + 100;  
         this.setState({speed: speed});
-        //const intervalID = setInterval(this.handleAI, speed);
-        //this.setState({intervalID: intervalID});
+        clearInterval(this.state.intervalID);
+        const intervalID = setInterval(this.handleAI, speed);
+        this.setState({intervalID: intervalID});
       }        
-      clearInterval(this.state.intervalId);
       console.log(this.state.speed);
     }
     
@@ -539,11 +539,10 @@ class App extends React.Component {
       if (speed > 100) {
         speed = speed - 100;
         this.setState({speed: speed});
-        clearInterval(this.state.intervalId);
-        //const intervalID = setInterval(this.handleAI, speed);
-        //this.setState({intervalID: intervalID});
+        clearInterval(this.state.intervalID)
+        const intervalID = setInterval(this.handleAI, speed);
+        this.setState({intervalID: intervalID});
       }
-      clearInterval(this.state.intervalId);
       console.log(this.state.speed);
     }
   }
