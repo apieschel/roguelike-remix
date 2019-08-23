@@ -91,6 +91,8 @@ class App extends React.Component {
 	constructor() {
 		super();
 		this.state = {
+      intervalID: 0,
+      speed: 100,
 			sound: true,
 			about: false,
 			replay: false,
@@ -121,7 +123,7 @@ class App extends React.Component {
 		this.handleBattle = this.handleBattle.bind(this);
 		this.handleDeath = this.handleDeath.bind(this);
 		this.handleSound = this.handleSound.bind(this);
-
+    this.manualMove = this.manualMove.bind(this);
 	}
 	// Allow the user to mute the sound:
 	handleSound() {
@@ -307,6 +309,8 @@ class App extends React.Component {
 		});
 
 	}
+  
+  
 	// Take in new map data and user location to render a new map to the page upon user movement:
 	updateMap(data, newLocation, offset) {
 
@@ -319,6 +323,8 @@ class App extends React.Component {
 			renderMap: newMap
 		});
 	}
+  
+  
 	// If player is defeated, alert Gameover and display the replay screen:
 	handleDeath() {
 			console.log('Player died!');
@@ -337,6 +343,8 @@ class App extends React.Component {
 			}.bind(this), 3000);
 			
 	}
+  
+  
 	// Take battle parameters and render outcome of any battle:
 	handleBattle(challengeID, damage, userHP, attack) {
 
@@ -511,8 +519,26 @@ class App extends React.Component {
 		}
 
 	}
+  
+  
+  handleKeyPress(event) {
+    let speed = this.state.speed;
+    if (event === 37) {  
+      if (speed < 1000) {
+        speed = speed + 100;  
+        this.setState({speed: speed});
+      }
+    }
+    
+    else if (event === 39) { 
+      if (speed > 0) {
+        speed = speed
+      }
+    }
+  }
+  
 	// Function to handle user movement based on arrow key input:
-	handleKeyPress(event) {
+	manualMove(event) {
 
 		// Check target location to see if there is an item there, if so, handle the challenge:
 		var checkLocationForItem = function(locationObj) {
@@ -1503,10 +1529,10 @@ class App extends React.Component {
   
 	// Add event listeners to detect user movement:
 	componentDidMount() {
-		window.addEventListener('keydown', this.handleKeyPress);
+		//window.addEventListener('keydown', this.handleKeyPress);
     
-    const intervalId = setInterval(this.handleAI, 1000);
-    
+    const intervalID = setInterval(this.handleAI, this.state.speed);
+    this.setState({intervalID: intervalID});
 	}
   
   
