@@ -522,18 +522,29 @@ class App extends React.Component {
   
   
   handleKeyPress(event) {
+    console.log(event);
     let speed = this.state.speed;
-    if (event === 37) {  
-      if (speed < 1000) {
+    if (event.keyCode === 37) {  
+      if (speed < 3000) {
         speed = speed + 100;  
         this.setState({speed: speed});
-      }
+        //const intervalID = setInterval(this.handleAI, speed);
+        //this.setState({intervalID: intervalID});
+      }        
+      clearInterval(this.state.intervalId);
+      console.log(this.state.speed);
     }
     
-    else if (event === 39) { 
-      if (speed > 0) {
-        speed = speed
+    else if (event.keyCode === 39) { 
+      if (speed > 100) {
+        speed = speed - 100;
+        this.setState({speed: speed});
+        clearInterval(this.state.intervalId);
+        //const intervalID = setInterval(this.handleAI, speed);
+        //this.setState({intervalID: intervalID});
       }
+      clearInterval(this.state.intervalId);
+      console.log(this.state.speed);
     }
   }
   
@@ -1529,7 +1540,7 @@ class App extends React.Component {
   
 	// Add event listeners to detect user movement:
 	componentDidMount() {
-		//window.addEventListener('keydown', this.handleKeyPress);
+		window.addEventListener('keydown', this.handleKeyPress);
     
     const intervalID = setInterval(this.handleAI, this.state.speed);
     this.setState({intervalID: intervalID});
