@@ -1162,13 +1162,17 @@ class App extends React.Component {
 		var offset = this.state.offset;
 		var userLocation = this.state.userLocation;
     var arrow;
+    var max = 5;
+    var min = 1;
     
-    if (event === 37) { arrow = 37 }
-    else if (event === 38) { arrow = 38 }
-    else if (event === 39) { arrow = 39 }
-    else if (event === 40) { arrow = 40 }
+    var randNum = Math.floor(Math.random() * (max - min) + min); 
+    
+    if (randNum === 1) { arrow = 37 }
+    else if (randNum === 2) { arrow = 38 }
+    else if (randNum === 3) { arrow = 39 }
+    else if (randNum === 4) { arrow = 40 }
 
-    else { arrow = event.keyCode; event.preventDefault(); }
+    else { arrow = 37 }
 
 		// Functions to handle movement; there are four functions which are basically identical:
 
@@ -1495,10 +1499,17 @@ class App extends React.Component {
 	componentWillMount() {
 		this.generateMap();
 	}
+  
+  
 	// Add event listeners to detect user movement:
 	componentDidMount() {
 		window.addEventListener('keydown', this.handleKeyPress);
+    
+    const intervalId = setInterval(this.handleAI, 1000);
+    
 	}
+  
+  
 	// Main render function of root component:
 	render() {
 		return (
