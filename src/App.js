@@ -1630,10 +1630,13 @@ class SideBar extends React.Component {
 		var certTitleStyle = statStyle;
 		var skillTitleStyle = statStyle;
     
-    var pauseRender = () => {
-      return (
-        
-      );  
+    var pauseRender;
+    if(this.props.paused) {
+      pauseRender = function() {
+          return (
+            <div>The game is paused.</div>
+          );  
+      }();
     }
     
 		var skillsRender = this.props.skillItems.map( (skill) => {
