@@ -1,20 +1,14 @@
 import React from "react";
 
 // Define colors:
-var dark = '#0084ff';
-var empty = '#196111';
-var user = '#ffc952';
-var blue = '#5677FF';
-var itemBonus = '#FFCF5F';
-var gray = 'rgb(180,180,180)';
-var mint = '#67D5B5';
-var gold = '#ffc952';
-var brightBlue = '#00dffc';
-var pink = '#ff7473';
-var barrierColor = '#FFD740';
-var headerBackground = '#19281E';
-var alarm = '#F8002C';
-var red = '#FF0000';
+const dark = '#0084ff';
+const blue = '#5677FF';
+const gray = 'rgb(180,180,180)';
+const mint = '#67D5B5';
+const gold = '#ffc952';
+const brightBlue = '#00dffc';
+const pink = '#ff7473';
+const alarm = '#F8002C';
 
 // Sidebar component which display player stats; i.e. Level, Exp, HP, Attack, Certifications, and Skills; these are updated conditionally as the player progresses in the game:
 class SideBar extends React.Component {
@@ -54,8 +48,8 @@ class SideBar extends React.Component {
     
 		var skillsRender = this.props.skillItems.map( (skill) => {
 			return (
-				<div key = {skill} style = {skillStyle}>
-					<img src = {skill} alt="Skill Item" style = {{"width": "45px", "height": "45px"}} className="skillItem" />
+				<div key={skill} style={skillStyle}>
+					<img src={skill} alt="Skill Item" style={{"width": "45px", "height": "45px"}} className="skillItem" />
 				</div>
 				);
 		});
@@ -82,9 +76,9 @@ class SideBar extends React.Component {
 			};
 		};
 		var certRender = this.props.certifications.map( (cert, i) => {
-			var image = <img src = {cert} style = {{ 'width': '75px', 'height': '55px'}} className = "certDiv" />
+			var image = <img src={cert} style={{ 'width': '75px', 'height': '55px'}} className="certDiv" alt="" />
 			return (
-				<div className = "certContainer" key = {i}>
+				<div className="certContainer" key={i}>
 					{image}
 				</div>
 			);
@@ -96,37 +90,37 @@ class SideBar extends React.Component {
 		var sound = "Sound On";
 		if (this.props.sound === false) { sound = "Sound Off"; soundStyle = { 'background': 'rgb(20,20,20)', 'color': 'rgb(150,150,150)' } }
 		return (
-			<div className = "sideBar">
-				<div className = "container">
-					<p style = {statStyle} className = "title">Player Stats</p>
-					<p style = {statStyle} className = "stat">Level: {this.props.level}</p>
-					<p style = {statStyle} className = "stat">HP: <span style = {lifeStyle}>{this.props.life}</span></p>
-					<p style = {statStyle} className = "stat">Experience: {this.props.experience}</p>
-					<p style = {statStyle} className = "stat">Attack: {this.props.attack}</p>
-					<p style = {certTitleStyle} className = "stat certTitle">Artifacts: {this.props.certifications.length}/3</p>
+			<div className="sideBar">
+				<div className="container">
+					<p style={statStyle} className="title">Player Stats</p>
+					<p style={statStyle} className="stat">Level: {this.props.level}</p>
+					<p style={statStyle} className="stat">HP: <span style={lifeStyle}>{this.props.life}</span></p>
+					<p style={statStyle} className="stat">Experience: {this.props.experience}</p>
+					<p style={statStyle} className="stat">Attack: {this.props.attack}</p>
+					<p style={certTitleStyle} className="stat certTitle">Artifacts: {this.props.certifications.length}/3</p>
 					<div className="certFlex">
-						<div style = {certStyle} className = "certList">
+						<div style={certStyle} className="certList">
 							{certRender}
 						</div>
 					</div>
-					<p style = {skillTitleStyle} className = "stat skillsTitle">Friends: {this.props.skillItems.length}/25</p>
+					<p style={skillTitleStyle} className="stat skillsTitle">Friends: {this.props.skillItems.length}/25</p>
 					<div className="skillsFlex">
-						<div className = "skillsList" style = {skillStyle} >
+						<div className="skillsList" style={skillStyle} >
 							{skillsRender}
 						</div>
 					</div>
           <div className="skillsFlex">
-						<div className = "skillsList" style = {{"color": gray}} >
+						<div className="skillsList" style={{"color": gray}} >
 							{pauseRender}
 						</div>
 					</div>
           <div className="skillsFlex">
-						<div className = "skillsList" style = {{"color": gray}} >
+						<div className="skillsList" style={{"color": gray}} >
 							Game Speed: {this.props.speed}
 						</div>
 					</div>
 					<div className="soundContainer">
-						<div className = "soundControl" onClick = {this.props.handleSound} style = {soundStyle}>
+						<div className="soundControl" onClick={this.props.handleSound} style={soundStyle}>
 							<p>{sound}</p>
 						</div>
 					</div>

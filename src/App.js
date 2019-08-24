@@ -7,21 +7,21 @@ import Game from "./Game";
 import SideBar from "./SideBar";
 
 // Define sound effects:
-var challengeSound = new Audio('http://soundbible.com/mp3/Computer_Magic-Microsift-1901299923.mp3');
-var hitSound = new Audio('http://soundbible.com/mp3/Jab-SoundBible.com-1806727891.mp3');
-var newItemSound = new Audio('http://soundbible.com/mp3/Ting-Popup_Pixels-349896185.mp3');
-var bonusSound = new Audio('http://soundbible.com/mp3/Music_Box-Big_Daddy-1389738694.mp3');
-var deathSound = new Audio('http://soundbible.com/mp3/Grenade-SoundBible.com-1777900486.mp3');
-var winner = new Audio('http://soundbible.com/mp3/Triangle Dinner Bell-SoundBible.com-220988408.mp3');
+const challengeSound = new Audio('http://soundbible.com/mp3/Computer_Magic-Microsift-1901299923.mp3');
+const hitSound = new Audio('http://soundbible.com/mp3/Jab-SoundBible.com-1806727891.mp3');
+const newItemSound = new Audio('http://soundbible.com/mp3/Ting-Popup_Pixels-349896185.mp3');
+const bonusSound = new Audio('http://soundbible.com/mp3/Music_Box-Big_Daddy-1389738694.mp3');
+const deathSound = new Audio('http://soundbible.com/mp3/Grenade-SoundBible.com-1777900486.mp3');
+const winner = new Audio('http://soundbible.com/mp3/Triangle Dinner Bell-SoundBible.com-220988408.mp3');
 
 // Define colors:
-var dark = '#0084ff';
-var brightBlue = '#00dffc';
-var headerBackground = '#19281E';
-var red = '#FF0000';
+const dark = '#0084ff';
+const brightBlue = '#00dffc';
+const headerBackground = '#19281E';
+const red = '#FF0000';
 
 // Define Skill Items:
-var skills = {
+const skills = {
 	'Bootstrap': ['https://robohash.org/one', 'You mastered responsive web design with Bootstrap!'],
 	'Bower': ['https://robohash.org/two', 'Your workflow skills improve with Bower!'],
 	'CamperBot': ['https://robohash.org/three', 'You completed a 100 day streak at freeCodeCamp! CamperBot joined your team!'],
@@ -50,7 +50,7 @@ var skills = {
 }
 
 // Define Challenges:
-var challenges = {
+const challenges = {
 	'front-end-1': [ 150, 'You built a tribute page, congratulations!'],
 	'front-end-2': [ 250, 'You completed the Wikipedia Viewer project!'],
 	'front-end-3': [ 350, 'You finished the Pomodoro Clock! Your productivity rises by 3000 points!'],
@@ -69,10 +69,10 @@ var challenges = {
 };
 
 // Define boss HP:
-var bossHP = 1000000;
+const bossHP = 1000000;
 
 // Image URLs for certification img tags:
-var certificationsList = {
+const certificationsList = {
 	'Front': 'http://i1361.photobucket.com/albums/r662/bonham000/Roguelike/frontend-cert_zpsq7qjoxm8.png',
 	'Viz': 'http://i1361.photobucket.com/albums/r662/bonham000/Roguelike/dataviz-cert_zpshjjcrndr.png',
 	'Back': 'http://i1361.photobucket.com/albums/r662/bonham000/Roguelike/backend-cert_zpsnmwzk83w.png'

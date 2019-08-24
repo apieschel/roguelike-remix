@@ -1,20 +1,12 @@
 import React from "react";
 
 // Define colors:
-var dark = '#0084ff';
-var empty = '#196111';
-var gray = 'rgb(180,180,180)';
-var mint = '#67D5B5';
-var gold = '#ffc952';
-var brightBlue = '#00dffc';
-var pink = '#ff7473';
-var barrierColor = '#FFD740';
-var headerBackground = '#19281E';
-var alarm = '#F8002C';
-var red = '#FF0000';
+const dark = '#0084ff';
+const empty = '#196111';
+const barrierColor = '#FFD740';
 
 // Define Skill Items:
-var skills = {
+const skills = {
 	'Bootstrap': ['https://robohash.org/one', 'You mastered responsive web design with Bootstrap!'],
 	'Bower': ['https://robohash.org/two', 'Your workflow skills improve with Bower!'],
 	'CamperBot': ['https://robohash.org/three', 'You completed a 100 day streak at freeCodeCamp! CamperBot joined your team!'],
@@ -41,35 +33,6 @@ var skills = {
 	'Twitter': ['https://robohash.org/twentyfour', 'Developers are following you on Twitter!'],
 	'Webpack': ['https://robohash.org/twentyfive', 'Your build skills are unmatched with Webpack! Gained Hot Reload as a Summon!']
 }
-
-// Define Challenges:
-var challenges = {
-	'front-end-1': [ 150, 'You built a tribute page, congratulations!'],
-	'front-end-2': [ 250, 'You completed the Wikipedia Viewer project!'],
-	'front-end-3': [ 350, 'You finished the Pomodoro Clock! Your productivity rises by 3000 points!'],
-	'front-end-4': [ 450, 'You built a Tic Tac Toe Game! And wrote an unbeatable algorithm! Great work!'],
-	'front-end-5': [ 550, 'You built a Simon Game! Your skills are really looking good!'],
-	'data-viz-1':  [ 550, 'You built a Markdown Previewer using React and Sass, impressive!'],
-	'data-viz-2':  [ 700, 'You built a Recipe Box App! Your friends are getting jealous!'],
-	'data-viz-3':  [ 850, 'You created stunning bar graphs, scatterplots, heatmaps, and force directed layouts with D3!'],
-	'data-viz-4':  [ 900, 'You completed a Javascript version of Conway\'s Game of Life, mesmerizing!'],
-	'data-viz-5':  [ 1050, 'You built a Roguelike Dungeon Crawler! Unbelievable!!!'],
-	'back-end-1':  [ 1200, 'You created a File Metadata Microservice! Your friends are really jealous now!'],
-	'back-end-2':  [ 1400, 'You created a Voting App, awesome!'],
-	'back-end-3':  [ 1650, 'You built a Nightlife Coordination App! Party on!'],
-	'back-end-4':  [ 1800, 'You created a Book Trading Club App! Your parents\' friends thank you!'],
-	'back-end-5':  [ 2000, 'You built a Pinterest Clone! Bring on the Non-Profit Projects!']
-};
-
-// Define boss HP:
-var bossHP = 1000000;
-
-// Image URLs for certification img tags:
-var certificationsList = {
-	'Front': 'http://i1361.photobucket.com/albums/r662/bonham000/Roguelike/frontend-cert_zpsq7qjoxm8.png',
-	'Viz': 'http://i1361.photobucket.com/albums/r662/bonham000/Roguelike/dataviz-cert_zpshjjcrndr.png',
-	'Back': 'http://i1361.photobucket.com/albums/r662/bonham000/Roguelike/backend-cert_zpsnmwzk83w.png'
-};
 
 // Main game board component, lots of conditional stlying going on here:
 // Sliced game data array is mapped through and all the cell items are given a background based on their contents, e.g. empty, solid, player, challenge, item, boss, barrier.
@@ -130,57 +93,57 @@ class Game extends React.Component {
       if ((i >= 6 && i <= 14) || (i >= 26 && i <= 34) || (i >= 46 && i <= 54) || (i >= 66 && i <= 74) || (i >= 86 && i <= 94) || (i >= 106 && i <= 114)) {
         return (
           <div
-            key = {i}
-            onClick = {this.props.clickMove.bind(this, 38)}
-            className = "gridItem"
-            style = {Object.assign({}, gridStyle, gridColor)}>
+            key={i}
+            onClick={this.props.clickMove.bind(this, 38)}
+            className="gridItem"
+            style={Object.assign({}, gridStyle, gridColor)}>
           </div>
 			  );
       }
       else if ((i >= 40 && i <= 45) || (i >= 60 && i <= 65) || (i >= 80 && i <= 85) || (i >= 100 && i <= 105) || (i >= 120 && i <= 125) || (i >= 140 && i <= 145) || (i >= 160 && i <= 165) || (i >= 180 && i <= 185)) {
         return (
           <div
-            key = {i}
-            onClick = {this.props.clickMove.bind(this, 37)}
-            className = "gridItem"
-            style = {Object.assign({}, gridStyle, gridColor)}>
+            key={i}
+            onClick={this.props.clickMove.bind(this, 37)}
+            className="gridItem"
+            style={Object.assign({}, gridStyle, gridColor)}>
           </div>
 			  );
       }
       else if ((i >= 55 && i <= 59) || (i >= 75 && i <= 79) || (i >= 95 && i <= 99) || (i >= 115 && i <= 119) || (i >= 135 && i <= 139) || (i >= 155 && i <= 159) || (i >= 175 && i <= 179) || (i >= 195 && i <= 199)) {
         return (
           <div
-            key = {i}
-            onClick = {this.props.clickMove.bind(this, 39)}
-            className = "gridItem"
-            style = {Object.assign({}, gridStyle, gridColor)}>
+            key={i}
+            onClick={this.props.clickMove.bind(this, 39)}
+            className="gridItem"
+            style={Object.assign({}, gridStyle, gridColor)}>
           </div>
 			  );
       }
       else if ((i >= 146 && i <= 154) || (i >= 166 && i <= 174) || (i >= 186 && i <= 194) || (i >= 206 && i <= 214) || (i >= 226 && i <= 234)) {
         return (
           <div
-            key = {i}
-            onClick = {this.props.clickMove.bind(this, 40)}
-            className = "gridItem"
-            style = {Object.assign({}, gridStyle, gridColor)}>
+            key={i}
+            onClick={this.props.clickMove.bind(this, 40)}
+            className="gridItem"
+            style={Object.assign({}, gridStyle, gridColor)}>
           </div>
 			  );
       }
       else {
         return (
           <div
-            key = {i}
-            className = "gridItem"
-            style = {Object.assign({}, gridStyle, gridColor)}>
+            key={i}
+            className="gridItem"
+            style={Object.assign({}, gridStyle, gridColor)}>
           </div>
 			  );
       }      
 
 		});
 		return (
-			<div className = "game" id = "gameBoard">
-				<div className = "map" id = "gameSpace">
+			<div className="game" id="gameBoard">
+				<div className="map" id="gameSpace">
 					{renderMap}
 				</div>
 			</div>
