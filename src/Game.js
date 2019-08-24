@@ -3,9 +3,6 @@ import React from "react";
 // Define colors:
 var dark = '#0084ff';
 var empty = '#196111';
-var user = '#ffc952';
-var blue = '#5677FF';
-var itemBonus = '#FFCF5F';
 var gray = 'rgb(180,180,180)';
 var mint = '#67D5B5';
 var gold = '#ffc952';

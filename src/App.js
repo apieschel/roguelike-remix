@@ -771,7 +771,7 @@ class App extends React.Component {
 				currentMap[userLocation].user = 0;
 				currentMap[newLocation].user = 1;
 				currentMap[newLocation].cellType = 0;
-				offset = offset - 1;
+				offset -= 1;
 				this.updateMap(currentMap, newLocation, offset);
 
 			}
@@ -783,7 +783,7 @@ class App extends React.Component {
 					currentMap[userLocation].user = 0;
 					currentMap[newLocation].user = 1;
 					currentMap[newLocation].cellType = 0;
-					offset = offset - 1;
+					offset -= 1;
 					this.updateMap(currentMap, newLocation, offset);
 
 				}
@@ -796,14 +796,14 @@ class App extends React.Component {
 
 			if (this.state.playing) {
 
-			var newLocation = userLocation - 20;
+			newLocation = userLocation - 20;
 
 			if (newLocation >= 0) {
 
 				if (currentMap[newLocation].cellType === 0) {
 
 					if (offset > 120) {
-						offset = offset - 20;
+						offset -= 20;
 					}
 					else if (newLocation <= 130) {
 						offset = newLocation;
@@ -817,7 +817,7 @@ class App extends React.Component {
 				}
 				
 				else if (checkLocationForItem(currentMap[newLocation])) {
-					var currentSkills = this.state.skillItems.slice();
+					currentSkills = this.state.skillItems.slice();
 					currentSkills[currentSkills.length] = skills[currentMap[newLocation].cellType][0];
 					
 					this.setState({
@@ -843,7 +843,7 @@ class App extends React.Component {
 					};
 
 					if (offset > 120) {
-						offset = offset - 20;
+						offset -= 20;
 					}
 					else if (newLocation <= 130) {
 						offset = newLocation;
@@ -879,7 +879,7 @@ class App extends React.Component {
 
 			if (this.state.playing) {
 
-			var newLocation = userLocation + 1;
+			newLocation = userLocation + 1;
 
 			if (currentMap[newLocation].cellType === 0) {
 
@@ -887,14 +887,14 @@ class App extends React.Component {
 				currentMap[newLocation].user = 1;
 				currentMap[newLocation].cellType = 0;
 
-				offset = offset + 1;
+				offset += 1;
 
 				this.updateMap(currentMap, newLocation, offset);
 
 			}
 			
 			else if (checkLocationForItem(currentMap[newLocation])) {
-				var currentSkills = this.state.skillItems.slice();
+				currentSkills = this.state.skillItems.slice();
 				currentSkills[currentSkills.length] = skills[currentMap[newLocation].cellType][0];
 				
 				this.setState({
@@ -923,7 +923,7 @@ class App extends React.Component {
 				currentMap[newLocation].user = 1;
 				currentMap[newLocation].cellType = 0;
 
-				offset = offset + 1;
+				offset += 1;
 
 				this.updateMap(currentMap, newLocation, offset);
 			}
@@ -935,7 +935,7 @@ class App extends React.Component {
 					currentMap[newLocation].user = 1;
 					currentMap[newLocation].cellType = 0;
 
-					offset = offset + 1;
+					offset += 1;
 
 					this.updateMap(currentMap, newLocation, offset);
 
@@ -952,14 +952,14 @@ class App extends React.Component {
 
 			if (this.state.playing) {
 
-			var newLocation = userLocation + 20;
+			newLocation = userLocation + 20;
 
 			if (newLocation <= 2000) {
 
 				if (currentMap[newLocation].cellType === 0) {
 					
 					if (offset < 120) {
-						offset = offset + 20;
+						offset += 20;
 					}
 					else if (newLocation >= 1870) {
 						offset = 240 - (2000 - newLocation);
@@ -974,7 +974,7 @@ class App extends React.Component {
 				}
 				
 				else if (checkLocationForItem(currentMap[newLocation])) {
-					var currentSkills = this.state.skillItems.slice();
+					currentSkills = this.state.skillItems.slice();
 					currentSkills[currentSkills.length] = skills[currentMap[newLocation].cellType][0];
 					
 					this.setState({
@@ -1000,7 +1000,7 @@ class App extends React.Component {
 					};
 
 					if (offset < 120) {
-						offset = offset + 20;
+						offset += 20;
 					}
 					else if (newLocation >= 1870) {
 						offset = 240 - (2000 - newLocation);
@@ -1033,9 +1033,6 @@ class App extends React.Component {
 	}
 
 	}
-  
-  
-  
   
   
   
@@ -1096,7 +1093,7 @@ class App extends React.Component {
 			var challenge = locationObj.cellType;
 			var attack = this.state.attackPower;
 			var userHealth = this.state.life;
-			var damage, challengeHP, challengeID;
+			var damage, challengeID;
 
 			if (challenge === 'front') {
 
@@ -1130,10 +1127,10 @@ class App extends React.Component {
 			}
 
 			else if (challenge === 'viz') {
-				var currentChallenges = this.state.dataVizChallenges.slice();
-				var check = 0;
+				currentChallenges = this.state.dataVizChallenges.slice();
+				check = 0;
 
-				for (var a = 0; a < currentChallenges.length; a++) {
+				for (a = 0; a < currentChallenges.length; a++) {
 					if (currentChallenges[a] === newLocation) {
 						challengeID = a + 10;
 						check = 1;
@@ -1159,10 +1156,10 @@ class App extends React.Component {
 
 			}
 			else if (challenge === 'back') {
-				var currentChallenges = this.state.backEndChallenges.slice();
-				var check = 0;
+				currentChallenges = this.state.backEndChallenges.slice();
+				check = 0;
 
-				for (var a = 0; a < currentChallenges.length; a++) {
+				for (a = 0; a < currentChallenges.length; a++) {
 					if (currentChallenges[a] === newLocation) {
 						challengeID = a + 100;
 						check = 1;
@@ -1230,7 +1227,7 @@ class App extends React.Component {
 			if (currentMap[newLocation].cellType === 0) {
 				currentMap[userLocation].user = 0;
 				currentMap[newLocation].user = 1;
-				offset = offset - 1;
+				offset -= 1;
 				this.updateMap(currentMap, newLocation, offset);
 			}
 
@@ -1264,7 +1261,7 @@ class App extends React.Component {
 				currentMap[userLocation].user = 0;
 				currentMap[newLocation].user = 1;
 				currentMap[newLocation].cellType = 0;
-				offset = offset - 1;
+				offset -= 1;
 				this.updateMap(currentMap, newLocation, offset);
 
 			}
@@ -1276,7 +1273,7 @@ class App extends React.Component {
 					currentMap[userLocation].user = 0;
 					currentMap[newLocation].user = 1;
 					currentMap[newLocation].cellType = 0;
-					offset = offset - 1;
+					offset -= 1;
 					this.updateMap(currentMap, newLocation, offset);
 
 				}
@@ -1289,14 +1286,14 @@ class App extends React.Component {
 
 			if (this.state.playing) {
 
-			var newLocation = userLocation - 20;
+			newLocation = userLocation - 20;
 
 			if (newLocation >= 0) {
 
 				if (currentMap[newLocation].cellType === 0) {
 
 					if (offset > 120) {
-						offset = offset - 20;
+						offset -= 20;
 					}
 					else if (newLocation <= 130) {
 						offset = newLocation;
@@ -1310,7 +1307,7 @@ class App extends React.Component {
 				}
 				
 				else if (checkLocationForItem(currentMap[newLocation])) {
-					var currentSkills = this.state.skillItems.slice();
+					currentSkills = this.state.skillItems.slice();
 					currentSkills[currentSkills.length] = skills[currentMap[newLocation].cellType][0];
 					
 					this.setState({
@@ -1336,7 +1333,7 @@ class App extends React.Component {
 					};
 
 					if (offset > 120) {
-						offset = offset - 20;
+						offset -= 20;
 					}
 					else if (newLocation <= 130) {
 						offset = newLocation;
@@ -1372,7 +1369,7 @@ class App extends React.Component {
 
 			if (this.state.playing) {
 
-			var newLocation = userLocation + 1;
+			newLocation = userLocation + 1;
 
 			if (currentMap[newLocation].cellType === 0) {
 
@@ -1380,14 +1377,14 @@ class App extends React.Component {
 				currentMap[newLocation].user = 1;
 				currentMap[newLocation].cellType = 0;
 
-				offset = offset + 1;
+				offset += 1;
 
 				this.updateMap(currentMap, newLocation, offset);
 
 			}
 			
 			else if (checkLocationForItem(currentMap[newLocation])) {
-				var currentSkills = this.state.skillItems.slice();
+				currentSkills = this.state.skillItems.slice();
 				currentSkills[currentSkills.length] = skills[currentMap[newLocation].cellType][0];
 				
 				this.setState({
@@ -1416,7 +1413,7 @@ class App extends React.Component {
 				currentMap[newLocation].user = 1;
 				currentMap[newLocation].cellType = 0;
 
-				offset = offset + 1;
+				offset += 1;
 
 				this.updateMap(currentMap, newLocation, offset);
 			}
@@ -1428,7 +1425,7 @@ class App extends React.Component {
 					currentMap[newLocation].user = 1;
 					currentMap[newLocation].cellType = 0;
 
-					offset = offset + 1;
+					offset += 1;
 
 					this.updateMap(currentMap, newLocation, offset);
 
@@ -1445,14 +1442,14 @@ class App extends React.Component {
 
 			if (this.state.playing) {
 
-			var newLocation = userLocation + 20;
+			newLocation = userLocation + 20;
 
 			if (newLocation <= 2000) {
 
 				if (currentMap[newLocation].cellType === 0) {
 					
 					if (offset < 120) {
-						offset = offset + 20;
+						offset += 20;
 					}
 					else if (newLocation >= 1870) {
 						offset = 240 - (2000 - newLocation);
@@ -1467,7 +1464,7 @@ class App extends React.Component {
 				}
 				
 				else if (checkLocationForItem(currentMap[newLocation])) {
-					var currentSkills = this.state.skillItems.slice();
+					currentSkills = this.state.skillItems.slice();
 					currentSkills[currentSkills.length] = skills[currentMap[newLocation].cellType][0];
 					
 					this.setState({
@@ -1493,7 +1490,7 @@ class App extends React.Component {
 					};
 
 					if (offset < 120) {
-						offset = offset + 20;
+						offset += 20;
 					}
 					else if (newLocation >= 1870) {
 						offset = 240 - (2000 - newLocation);
@@ -1541,24 +1538,24 @@ class App extends React.Component {
 	// Main render function of root component:
 	render() {
 		return (
-			<div className = "pageWrapper">
+			<div className="pageWrapper">
 				<Header
-					header = {this.state.header}/>
-				<div className = "gameWrapper">
+					header={this.state.header}/>
+				<div className="gameWrapper">
 					<SideBar
-						sound = {this.state.sound}
-						handleSound = {this.handleSound}
-						level = {this.state.level}
-						life = {this.state.life}
-						attack = {this.state.attackPower}
-						skillItems = {this.state.skillItems}
-						experience = {this.state.experience}
-						certifications = {this.state.certifications}
-            speed = {this.state.speed}
-            paused = {this.state.paused} />
+						sound={this.state.sound}
+						handleSound={this.handleSound}
+						level={this.state.level}
+						life={this.state.life}
+						attack={this.state.attackPower}
+						skillItems={this.state.skillItems}
+						experience={this.state.experience}
+						certifications={this.state.certifications}
+            speed={this.state.speed}
+            paused={this.state.paused} />
 					<Game
-						gameMap = {this.state.renderMap} 
-            clickMove = {this.handleKeyPress} />
+						gameMap={this.state.renderMap} 
+            clickMove={this.handleKeyPress} />
 				</div>
 			</div>
 		);
