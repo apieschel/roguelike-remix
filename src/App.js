@@ -1,7 +1,6 @@
 // SOURCE: https://codepen.io/freeCodeCamp/pen/apLXEJ
 
-import React, { Component } from 'react';
-import logo from './logo.svg';
+import React from 'react';
 import './App.css';
 import Header from "./Header";
 import Game from "./Game";
@@ -17,18 +16,8 @@ var winner = new Audio('http://soundbible.com/mp3/Triangle Dinner Bell-SoundBibl
 
 // Define colors:
 var dark = '#0084ff';
-var empty = '#196111';
-var user = '#ffc952';
-var blue = '#5677FF';
-var itemBonus = '#FFCF5F';
-var gray = 'rgb(180,180,180)';
-var mint = '#67D5B5';
-var gold = '#ffc952';
 var brightBlue = '#00dffc';
-var pink = '#ff7473';
-var barrierColor = '#FFD740';
 var headerBackground = '#19281E';
-var alarm = '#F8002C';
 var red = '#FF0000';
 
 // Define Skill Items:
@@ -195,7 +184,6 @@ class App extends React.Component {
 		var w = 1000;
 		var h = 5000;
 		var gridWidth = 50;
-		var gridHeight = gridWidth;
 		var numRows = h / gridWidth;
 		var arr = [];
 
@@ -229,8 +217,6 @@ class App extends React.Component {
 		}
 
 		// Randomly place challenges on map:
-
-		var rand;
 		var challengeLimit = 15;
 
 		var b = 0;
@@ -385,7 +371,7 @@ class App extends React.Component {
 			challenges[challenge][0] = challengeNewHP;
 		}
 		else if (challengeID === 'boss') {
-			bossHP = bossHP - attack;
+			bossHP -= attack;
 			challengeNewHP = bossHP;
 		}
 
@@ -1541,15 +1527,10 @@ class App extends React.Component {
 
 	}
   
-  
-	// Generate the map data on component initial render:
-	componentWillMount() {
-		this.generateMap();
-	}
-  
-  
 	// Add event listeners to detect user movement:
 	componentDidMount() {
+    this.generateMap();
+    
 		window.addEventListener('keydown', this.handleKeyPress);
     
     const intervalID = setInterval(this.handleAI, this.state.speed);
