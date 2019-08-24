@@ -93,6 +93,7 @@ class App extends React.Component {
 		this.state = {
       intervalID: 0,
       speed: 100,
+      paused: false,
 			sound: true,
 			about: false,
 			replay: false,
@@ -524,6 +525,23 @@ class App extends React.Component {
   handleKeyPress(event) {
     console.log(event);
     let speed = this.state.speed;
+    let paused = this.state.paused;
+    
+    // spacebar pauses and unpauses time
+    if (event.keyCode === 32) {  
+      if (paused) {
+        paused = false;
+        this.setState({speed: speed});
+        const intervalID = setInterval(this.handleAI, speed);
+        this.setState({intervalID: intervalID, paused: paused});
+      } else {
+        paused = true;
+        clearInterval(this.state.intervalID); 
+        this.setState({paused: paused});
+      }
+    }
+    
+    // left arrow slows down time
     if (event.keyCode === 37) {  
       if (speed < 1000) {
         speed = speed + 100;  
@@ -535,6 +553,7 @@ class App extends React.Component {
       console.log(this.state.speed);
     }
     
+    // right arrow speeds up time
     else if (event.keyCode === 39) { 
       if (speed > 100) {
         speed = speed - 100;
@@ -1561,7 +1580,9 @@ class App extends React.Component {
 						attack = {this.state.attackPower}
 						skillItems = {this.state.skillItems}
 						experience = {this.state.experience}
-						certifications = {this.state.certifications} />
+						certifications = {this.state.certifications}
+            speed = {this.state.speed}
+            paused = {this.state.paused} />
 					<Game
 						gameMap = {this.state.renderMap} 
             clickMove = {this.handleKeyPress} />
@@ -1608,7 +1629,13 @@ class SideBar extends React.Component {
 		};
 		var certTitleStyle = statStyle;
 		var skillTitleStyle = statStyle;
-
+    
+    var pauseRender = () => {
+      return (
+        
+      );  
+    }
+    
 		var skillsRender = this.props.skillItems.map( (skill) => {
 			return (
 				<div key = {skill} style = {skillStyle}>
@@ -1670,6 +1697,16 @@ class SideBar extends React.Component {
 					<div className="skillsFlex">
 						<div className = "skillsList" style = {skillStyle} >
 							{skillsRender}
+						</div>
+					</div>
+          <div className="skillsFlex">
+						<div className = "skillsList" style = {skillStyle} >
+							{pauseRender}
+						</div>
+					</div>
+          <div className="skillsFlex">
+						<div className = "skillsList" style = {skillStyle} >
+							Game Speed: {this.props.speed}
 						</div>
 					</div>
 					<div className="soundContainer">
