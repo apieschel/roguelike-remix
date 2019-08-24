@@ -69,7 +69,7 @@ const challenges = {
 };
 
 // Define boss HP:
-const bossHP = 1000000;
+let bossHP = 1000000;
 
 // Image URLs for certification img tags:
 const certificationsList = {
