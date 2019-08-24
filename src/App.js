@@ -3,6 +3,9 @@
 import React, { Component } from 'react';
 import logo from './logo.svg';
 import './App.css';
+import Header from "./Header";
+import Game from "./Game";
+import SideBar from "./SideBar";
 
 // Define sound effects:
 var challengeSound = new Audio('http://soundbible.com/mp3/Computer_Magic-Microsift-1901299923.mp3');
@@ -94,7 +97,7 @@ class App extends React.Component {
       intervalID: 0,
       speed: 100,
       paused: false,
-			sound: true,
+			sound: false,
 			about: false,
 			replay: false,
 			playing: true,
@@ -1539,12 +1542,6 @@ class App extends React.Component {
 	}
   
   
-  
-  
-  
-  
-  
-  
 	// Generate the map data on component initial render:
 	componentWillMount() {
 		this.generateMap();
@@ -1581,123 +1578,6 @@ class App extends React.Component {
 					<Game
 						gameMap = {this.state.renderMap} 
             clickMove = {this.handleKeyPress} />
-				</div>
-			</div>
-		);
-	}
-};
-
-// Main game board component, lots of conditional stlying going on here:
-// Sliced game data array is mapped through and all the cell items are given a background based on their contents, e.g. empty, solid, player, challenge, item, boss, barrier.
-class Game extends React.Component {
-	render() {
-		var gridStyle, gridColor;
-		var mapData = this.props.gameMap;
-
-		var renderMap = mapData.map( (grid, i) => {
-
-			gridStyle = { width: grid.cellSize, height: grid.cellSize }; // Set cell sizes based on the pre-set dimensions
-
-			// Set grid color for all empty grids, this is so that the gradient which is applied to the outer div is visible. Better aesthetics.
-			gridColor = { background: empty };
-
-			// Fill grids that are non-playable:
-			if (grid.cellType === 1) { gridColor = { background: dark } }
-
-			// Set images for challenges:
-			else if (grid.cellType === 'front') { gridColor = { background: "url('https://robohash.org/one?set=set2')", backgroundSize: 'cover' } }
-			else if (grid.cellType === 'viz') { gridColor = { background: "url('https://robohash.org/two?set=set2')", backgroundSize: 'cover' } }
-			else if (grid.cellType === 'back') { gridColor = { background: "url('https://robohash.org/three?set=set2')", backgroundSize: 'cover' } }
-
-			// Set cells for barrier and boss:
-			else if (grid.cellType === 'barrier') { gridColor = { background: barrierColor } }
-			else if (grid.cellType === 'boss') { gridColor = { background: "url('http://i1361.photobucket.com/albums/r662/bonham000/Roguelike/g4371_zpsizzy7el0.png')", backgroundSize: 'cover' } }
-
-			// Set images for skill items:
-			else if (grid.cellType === 'Bootstrap') { gridColor = { background: "url(" + skills.Bootstrap[0] + ")", backgroundSize: 'cover' } }
-			else if (grid.cellType === 'Bower') { gridColor = { background: "url(" + skills.Bower[0] + ")", backgroundSize: 'cover' } }
-			else if (grid.cellType === 'CamperBot') { gridColor = { background: "url(" + skills.CamperBot[0] + ")", backgroundSize: 'cover' } }								
-			else if (grid.cellType === 'Codepen') { gridColor = { background: "url(" + skills.Codepen[0] + ")", backgroundSize: 'cover' } }				
-			else if (grid.cellType === 'CSS3') { gridColor = { background: "url(" + skills.CSS3[0] + ")", backgroundSize: 'cover' } }
-			else if (grid.cellType === 'D3') { gridColor = { background: "url(" + skills.D3[0] + ")", backgroundSize: 'cover' } }
-			else if (grid.cellType === 'ES6') { gridColor = { background: "url(" + skills.ES6[0] + ")", backgroundSize: 'cover' } }
-			else if (grid.cellType === 'Git') { gridColor = { background: "url(" + skills.Git[0] + ")", backgroundSize: 'cover' } }				
-			else if (grid.cellType === 'Github') { gridColor = { background: "url(" + skills.Github[0] + ")", backgroundSize: 'cover' } }	
-			else if (grid.cellType === 'Gitter') { gridColor = { background: "url(" + skills.Gitter[0] + ")", backgroundSize: 'cover' } }
-			else if (grid.cellType === 'Grunt') { gridColor = { background: "url(" + skills.Grunt[0] + ")", backgroundSize: 'cover' } }
-			else if (grid.cellType === 'Heroku') { gridColor = { background: "url(" + skills.Heroku[0] + ")", backgroundSize: 'cover' } }				
-			else if (grid.cellType === 'HTML5') { gridColor = { background: "url(" + skills.HTML5[0] + ")", backgroundSize: 'cover' } }	
-			else if (grid.cellType === 'jQuery') { gridColor = { background: "url(" + skills.jQuery[0] + ")", backgroundSize: 'cover' } }
-			else if (grid.cellType === 'Javascript') { gridColor = { background: "url(" + skills.Javascript[0] + ")", backgroundSize: 'cover' } }
-			else if (grid.cellType === 'MongoDB') { gridColor = { background: "url(" + skills.MongoDB[0] + ")", backgroundSize: 'cover' } }				
-			else if (grid.cellType === 'NodeJS') { gridColor = { background: "url(" + skills.NodeJS[0] + ")", backgroundSize: 'cover' } }	
-			else if (grid.cellType === 'React') { gridColor = { background: "url(" + skills.React[0] + ")", backgroundSize: 'cover' } }				
-			else if (grid.cellType === 'Redux') { gridColor = { background: "url(" + skills.Redux[0] + ")", backgroundSize: 'cover' } }	
-			else if (grid.cellType === 'Sass') { gridColor = { background: "url(" + skills.Sass[0] + ")", backgroundSize: 'cover' } }
-			else if (grid.cellType === 'StackOverflow') { gridColor = { background: "url(" + skills.StackOverflow[0] + ")", backgroundSize: 'cover' } }
-			else if (grid.cellType === 'Sublime') { gridColor = { background: "url(" + skills.Sublime[0] + ")", backgroundSize: 'cover' } }				
-			else if (grid.cellType === 'Terminal') { gridColor = { background: "url(" + skills.Terminal[0] + ")", backgroundSize: 'cover' } }	
-			else if (grid.cellType === 'Twitter') { gridColor = { background: "url(" + skills.Twitter[0] + ")", backgroundSize: 'cover' } }				
-			else if (grid.cellType === 'Webpack') { gridColor = { background: "url(" + skills.Webpack[0] + ")", backgroundSize: 'cover' } }
-
-			// Add user to user grid:
-			if (grid.user === 1) { gridColor = { background: "url('https://robohash.org/alex')", backgroundSize: '51px 51px' } }
-			
-      if ((i >= 6 && i <= 14) || (i >= 26 && i <= 34) || (i >= 46 && i <= 54) || (i >= 66 && i <= 74) || (i >= 86 && i <= 94) || (i >= 106 && i <= 114)) {
-        return (
-          <div
-            key = {i}
-            onClick = {this.props.clickMove.bind(this, 38)}
-            className = "gridItem"
-            style = {Object.assign({}, gridStyle, gridColor)}>
-          </div>
-			  );
-      }
-      else if ((i >= 40 && i <= 45) || (i >= 60 && i <= 65) || (i >= 80 && i <= 85) || (i >= 100 && i <= 105) || (i >= 120 && i <= 125) || (i >= 140 && i <= 145) || (i >= 160 && i <= 165) || (i >= 180 && i <= 185)) {
-        return (
-          <div
-            key = {i}
-            onClick = {this.props.clickMove.bind(this, 37)}
-            className = "gridItem"
-            style = {Object.assign({}, gridStyle, gridColor)}>
-          </div>
-			  );
-      }
-      else if ((i >= 55 && i <= 59) || (i >= 75 && i <= 79) || (i >= 95 && i <= 99) || (i >= 115 && i <= 119) || (i >= 135 && i <= 139) || (i >= 155 && i <= 159) || (i >= 175 && i <= 179) || (i >= 195 && i <= 199)) {
-        return (
-          <div
-            key = {i}
-            onClick = {this.props.clickMove.bind(this, 39)}
-            className = "gridItem"
-            style = {Object.assign({}, gridStyle, gridColor)}>
-          </div>
-			  );
-      }
-      else if ((i >= 146 && i <= 154) || (i >= 166 && i <= 174) || (i >= 186 && i <= 194) || (i >= 206 && i <= 214) || (i >= 226 && i <= 234)) {
-        return (
-          <div
-            key = {i}
-            onClick = {this.props.clickMove.bind(this, 40)}
-            className = "gridItem"
-            style = {Object.assign({}, gridStyle, gridColor)}>
-          </div>
-			  );
-      }
-      else {
-        return (
-          <div
-            key = {i}
-            className = "gridItem"
-            style = {Object.assign({}, gridStyle, gridColor)}>
-          </div>
-			  );
-      }      
-
-		});
-		return (
-			<div className = "game" id = "gameBoard">
-				<div className = "map" id = "gameSpace">
-					{renderMap}
 				</div>
 			</div>
 		);

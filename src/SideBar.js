@@ -1,3 +1,20 @@
+import React from "react";
+
+// Define colors:
+var dark = '#0084ff';
+var empty = '#196111';
+var user = '#ffc952';
+var blue = '#5677FF';
+var itemBonus = '#FFCF5F';
+var gray = 'rgb(180,180,180)';
+var mint = '#67D5B5';
+var gold = '#ffc952';
+var brightBlue = '#00dffc';
+var pink = '#ff7473';
+var barrierColor = '#FFD740';
+var headerBackground = '#19281E';
+var alarm = '#F8002C';
+var red = '#FF0000';
 
 // Sidebar component which display player stats; i.e. Level, Exp, HP, Attack, Certifications, and Skills; these are updated conditionally as the player progresses in the game:
 class SideBar extends React.Component {
@@ -118,3 +135,5 @@ class SideBar extends React.Component {
 		);
 	}
 };
+
+export default SideBar;

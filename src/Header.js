@@ -1,3 +1,5 @@
+import React from "react";
+
 // Header component which displays messages throughout the game:
 class Header extends React.Component {
 	render() {
@@ -8,3 +10,5 @@ class Header extends React.Component {
 		);
 	}
 };
+
+export default Header;
