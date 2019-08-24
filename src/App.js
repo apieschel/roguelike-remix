@@ -14,7 +14,7 @@ var winner = new Audio('http://soundbible.com/mp3/Triangle Dinner Bell-SoundBibl
 
 // Define colors:
 var dark = 'rgb(30,30,30)';
-var empty = 'rgba(20,20,20,0.20)';
+var empty = 'black';
 var user = '#ffc952';
 var blue = '#5677FF';
 var itemBonus = '#FFCF5F';
@@ -1736,9 +1736,9 @@ class Game extends React.Component {
 			if (grid.cellType === 1) { gridColor = { background: dark } }
 
 			// Set images for challenges:
-			else if (grid.cellType === 'front') { gridColor = { background: "url('http://i1361.photobucket.com/albums/r662/bonham000/Roguelike/front-end_zpsglpvzdlg.png')", backgroundSize: 'cover' } }
-			else if (grid.cellType === 'viz') { gridColor = { background: "url('http://i1361.photobucket.com/albums/r662/bonham000/Roguelike/data-viz_zpshjybdrpe.png')", backgroundSize: 'cover' } }
-			else if (grid.cellType === 'back') { gridColor = { background: "url('http://i1361.photobucket.com/albums/r662/bonham000/Roguelike/back-end_zpshhvy4hd1.png')", backgroundSize: 'cover' } }
+			else if (grid.cellType === 'front') { gridColor = { background: "url('https://robohash.org/one?set=set2')", backgroundSize: 'cover' } }
+			else if (grid.cellType === 'viz') { gridColor = { background: "url('https://robohash.org/two?set=set2')", backgroundSize: 'cover' } }
+			else if (grid.cellType === 'back') { gridColor = { background: "url('https://robohash.org/three?set=set2')", backgroundSize: 'cover' } }
 
 			// Set cells for barrier and boss:
 			else if (grid.cellType === 'barrier') { gridColor = { background: barrierColor } }

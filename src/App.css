@@ -241,8 +241,8 @@ body {
   flex-direction: row;
   flex-wrap: wrap;
   overflow: hidden;
-  border: 1px solid #00dffc;
-  background: linear-gradient(#47327c, #1c2d63);
+  border: 1px solid black;
+  background: black;
 }
 .gameWrapper .game .map .gridItem {
   background-size: cover;
