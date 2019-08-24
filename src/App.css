@@ -1,5 +1,5 @@
 body {
-  background: #232323;
+  background: black;
   padding: 0;
   margin: 0;
 }
@@ -106,8 +106,7 @@ body {
   left: 0;
   height: 50px;
   width: 100%;
-  background: #19281e;
-  border-bottom: 1px solid #67d5b5;
+  border-bottom: 1px solid black;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -132,8 +131,7 @@ body {
   min-height: 625px;
   height: calc(100vh - 50px);
   margin: 0;
-  background: #272932;
-  border-right: 1px solid #67d5b5;
+  border-right: 1px solid black;
 }
 .gameWrapper .sideBar .container p {
   font-family: 'Cormorant Garamond', serif;
@@ -228,7 +226,7 @@ body {
   height: calc(100vh - 50px);
   padding: 0;
   margin: 0;
-  background: #232323;
+  background: black;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -242,7 +240,7 @@ body {
   flex-wrap: wrap;
   overflow: hidden;
   border: 1px solid black;
-  background: black;
+  background: #196111;
 }
 .gameWrapper .game .map .gridItem {
   background-size: cover;

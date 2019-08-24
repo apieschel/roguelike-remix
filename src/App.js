@@ -13,8 +13,8 @@ var deathSound = new Audio('http://soundbible.com/mp3/Grenade-SoundBible.com-177
 var winner = new Audio('http://soundbible.com/mp3/Triangle Dinner Bell-SoundBible.com-220988408.mp3');
 
 // Define colors:
-var dark = 'rgb(30,30,30)';
-var empty = 'black';
+var dark = '#0084ff';
+var empty = '#196111';
 var user = '#ffc952';
 var blue = '#5677FF';
 var itemBonus = '#FFCF5F';
@@ -1685,13 +1685,13 @@ class SideBar extends React.Component {
 					<p style = {statStyle} className = "stat">HP: <span style = {lifeStyle}>{this.props.life}</span></p>
 					<p style = {statStyle} className = "stat">Experience: {this.props.experience}</p>
 					<p style = {statStyle} className = "stat">Attack: {this.props.attack}</p>
-					<p style = {certTitleStyle} className = "stat certTitle">Certifications: {this.props.certifications.length}/3</p>
+					<p style = {certTitleStyle} className = "stat certTitle">Artifacts: {this.props.certifications.length}/3</p>
 					<div className="certFlex">
 						<div style = {certStyle} className = "certList">
 							{certRender}
 						</div>
 					</div>
-					<p style = {skillTitleStyle} className = "stat skillsTitle">Skills: {this.props.skillItems.length}/25</p>
+					<p style = {skillTitleStyle} className = "stat skillsTitle">Friends: {this.props.skillItems.length}/25</p>
 					<div className="skillsFlex">
 						<div className = "skillsList" style = {skillStyle} >
 							{skillsRender}
