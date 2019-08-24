@@ -528,7 +528,7 @@ class App extends React.Component {
     // left arrow slows down time
     if (event.keyCode === 37) {  
       if (speed < 1000) {
-        speed = speed + 100;  
+        speed += 100;  
         this.setState({speed: speed});
         clearInterval(this.state.intervalID);
         const intervalID = setInterval(this.handleAI, speed);
@@ -540,7 +540,7 @@ class App extends React.Component {
     // right arrow speeds up time
     else if (event.keyCode === 39) { 
       if (speed > 100) {
-        speed = speed - 100;
+        speed -= 100;
         this.setState({speed: speed});
         clearInterval(this.state.intervalID)
         const intervalID = setInterval(this.handleAI, speed);
@@ -607,7 +607,7 @@ class App extends React.Component {
 			var challenge = locationObj.cellType;
 			var attack = this.state.attackPower;
 			var userHealth = this.state.life;
-			var damage, challengeHP, challengeID;
+			var damage, challengeID;
 
 			if (challenge === 'front') {
 
@@ -641,10 +641,10 @@ class App extends React.Component {
 			}
 
 			else if (challenge === 'viz') {
-				var currentChallenges = this.state.dataVizChallenges.slice();
-				var check = 0;
+				currentChallenges = this.state.dataVizChallenges.slice();
+				check = 0;
 
-				for (var a = 0; a < currentChallenges.length; a++) {
+				for (a = 0; a < currentChallenges.length; a++) {
 					if (currentChallenges[a] === newLocation) {
 						challengeID = a + 10;
 						check = 1;
@@ -670,10 +670,10 @@ class App extends React.Component {
 
 			}
 			else if (challenge === 'back') {
-				var currentChallenges = this.state.backEndChallenges.slice();
-				var check = 0;
+				currentChallenges = this.state.backEndChallenges.slice();
+				check = 0;
 
-				for (var a = 0; a < currentChallenges.length; a++) {
+				for (a = 0; a < currentChallenges.length; a++) {
 					if (currentChallenges[a] === newLocation) {
 						challengeID = a + 100;
 						check = 1;
@@ -737,7 +737,7 @@ class App extends React.Component {
 			if (currentMap[newLocation].cellType === 0) {
 				currentMap[userLocation].user = 0;
 				currentMap[newLocation].user = 1;
-				offset = offset - 1;
+				offset -= 1;
 				this.updateMap(currentMap, newLocation, offset);
 			}
 
