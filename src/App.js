@@ -30,31 +30,31 @@ var red = '#FF0000';
 
 // Define Skill Items:
 var skills = {
-	'Bootstrap': ['http://i1361.photobucket.com/albums/r662/bonham000/Roguelike/bootstarp_zpss8vblcyf.png', 'You mastered responsive web design with Bootstrap!'],
-	'Bower': ['http://i1361.photobucket.com/albums/r662/bonham000/Roguelike/bower_zpsiryvttjz.png', 'Your workflow skills improve with Bower!'],
-	'CamperBot': ['http://i1361.photobucket.com/albums/r662/bonham000/Roguelike/camper-bot_zpss0vmcylr.png', 'You completed a 100 day streak at freeCodeCamp! CamperBot joined your team!'],
-	'Codepen': ['http://i1361.photobucket.com/albums/r662/bonham000/Roguelike/codepen_zps7q5rhj96.png', 'Your project made the front page of Codepen! Respect!'],
-	'CSS3': ['http://i1361.photobucket.com/albums/r662/bonham000/Roguelike/css3_zpsfgjif0yl.png', 'You gained valuable style skills, you can now vertically center text!'],
-	'D3': ['http://i1361.photobucket.com/albums/r662/bonham000/Roguelike/d3_zpsqry6neks.png', 'You mastered D3 and now can transform arbitrary data into beautiful charts!'],
-	'ES6': ['http://i1361.photobucket.com/albums/r662/bonham000/Roguelike/es6_zpstofeky6l.png', 'You learned ES6! Your attack improves with fat arrow function skills!'],
-	'Git': ['http://i1361.photobucket.com/albums/r662/bonham000/Roguelike/git_zpsbqpulcno.png', 'You mastered git, your workflow continues to improve!'],
-	'Github': ['http://i1361.photobucket.com/albums/r662/bonham000/Roguelike/github_zpsscwefh3e.png', 'You contributed to Open Source! Octocat joined your team!'],
-	'Gitter': ['http://i1361.photobucket.com/albums/r662/bonham000/Roguelike/gitter_zpsf4bixwzd.png', 'Campers gave you brownie points in Gitter Chat!'],
-	'Grunt': ['http://i1361.photobucket.com/albums/r662/bonham000/Roguelike/grunt_zpse8urargg.png', 'Your workflow is totally automated!'],
-	'Heroku': ['http://i1361.photobucket.com/albums/r662/bonham000/Roguelike/heroku_zpsvanhf1kx.png', 'You\'re deploying apps from Heroku!'],
-	'HTML5': ['http://i1361.photobucket.com/albums/r662/bonham000/Roguelike/HTML5_zpswgfqraaq.png', 'You\'ve become a master of HTML5!'],
-	'jQuery': ['http://i1361.photobucket.com/albums/r662/bonham000/Roguelike/jQuery_zpshgckvwqv.png', 'You mastered jQuery! DOM selection is a piece of cake for you!'],
-	'Javascript': ['http://i1361.photobucket.com/albums/r662/bonham000/Roguelike/javascript_zpspq5wlpgf.png', 'You learned about hoisting and callbacks in Javascript!'],
-	'MongoDB': ['http://i1361.photobucket.com/albums/r662/bonham000/Roguelike/mongoDB_zpsw9fkl7t9.png', 'You became a database champ with MongoDB!'],
-	'NodeJS': ['http://i1361.photobucket.com/albums/r662/bonham000/Roguelike/node_zpsjqltyxfy.png', 'You started coding Javascript on the back end! You gained isomorphic attack power!'],
-	'React': ['http://i1361.photobucket.com/albums/r662/bonham000/Roguelike/react_zpsu5wxjan7.png', 'You gained powerful Virtual DOM abilities! JSX has been added to your weapons list!'],
-	'Redux': ['http://i1361.photobucket.com/albums/r662/bonham000/Roguelike/redux_zpsbdb7qgwg.png', 'You obtained Redux Superpowers! All of your items are now immutable!'],
-	'Sass': ['http://i1361.photobucket.com/albums/r662/bonham000/Roguelike/sass_zpswfmipglk.png', 'Your CSS has become Sassy!'],
-	'StackOverflow': ['http://i1361.photobucket.com/albums/r662/bonham000/Roguelike/stack-overflow_zpsgukj4ov4.png', 'You can finally vote on StackOverflow answers!'],
-	'Sublime': ['http://i1361.photobucket.com/albums/r662/bonham000/Roguelike/sublime_zps76mjstkv.png', 'Your code editing skills are leveled up with Sublime Text!'],
-	'Terminal': ['http://i1361.photobucket.com/albums/r662/bonham000/Roguelike/terminal_zpshcdn2axm.png', 'You\'ve become a master of the command line!'],
-	'Twitter': ['http://i1361.photobucket.com/albums/r662/bonham000/Roguelike/twitter_zpslsshz5z7.png', 'Developers are following you on Twitter!'],
-	'Webpack': ['http://i1361.photobucket.com/albums/r662/bonham000/Roguelike/webpack_zpsevn2xywn.png', 'Your build skills are unmatched with Webpack! Gained Hot Reload as a Summon!']
+	'Bootstrap': ['https://robohash.org/one', 'You mastered responsive web design with Bootstrap!'],
+	'Bower': ['https://robohash.org/two', 'Your workflow skills improve with Bower!'],
+	'CamperBot': ['https://robohash.org/three', 'You completed a 100 day streak at freeCodeCamp! CamperBot joined your team!'],
+	'Codepen': ['https://robohash.org/four', 'Your project made the front page of Codepen! Respect!'],
+	'CSS3': ['https://robohash.org/five', 'You gained valuable style skills, you can now vertically center text!'],
+	'D3': ['https://robohash.org/six', 'You mastered D3 and now can transform arbitrary data into beautiful charts!'],
+	'ES6': ['https://robohash.org/seven', 'You learned ES6! Your attack improves with fat arrow function skills!'],
+	'Git': ['https://robohash.org/eight', 'You mastered git, your workflow continues to improve!'],
+	'Github': ['https://robohash.org/nine', 'You contributed to Open Source! Octocat joined your team!'],
+	'Gitter': ['https://robohash.org/ten', 'Campers gave you brownie points in Gitter Chat!'],
+	'Grunt': ['https://robohash.org/eleven', 'Your workflow is totally automated!'],
+	'Heroku': ['https://robohash.org/twelve', 'You\'re deploying apps from Heroku!'],
+	'HTML5': ['https://robohash.org/thirteen', 'You\'ve become a master of HTML5!'],
+	'jQuery': ['https://robohash.org/fourteen', 'You mastered jQuery! DOM selection is a piece of cake for you!'],
+	'Javascript': ['https://robohash.org/fifteen', 'You learned about hoisting and callbacks in Javascript!'],
+	'MongoDB': ['https://robohash.org/sixteen', 'You became a database champ with MongoDB!'],
+	'NodeJS': ['https://robohash.org/seventeen', 'You started coding Javascript on the back end! You gained isomorphic attack power!'],
+	'React': ['https://robohash.org/eighteen', 'You gained powerful Virtual DOM abilities! JSX has been added to your weapons list!'],
+	'Redux': ['https://robohash.org/nineteen', 'You obtained Redux Superpowers! All of your items are now immutable!'],
+	'Sass': ['https://robohash.org/twenty', 'Your CSS has become Sassy!'],
+	'StackOverflow': ['https://robohash.org/twentyone', 'You can finally vote on StackOverflow answers!'],
+	'Sublime': ['https://robohash.org/twentytwo', 'Your code editing skills are leveled up with Sublime Text!'],
+	'Terminal': ['https://robohash.org/twentythree', 'You\'ve become a master of the command line!'],
+	'Twitter': ['https://robohash.org/twentyfour', 'Developers are following you on Twitter!'],
+	'Webpack': ['https://robohash.org/twentyfive', 'Your build skills are unmatched with Webpack! Gained Hot Reload as a Summon!']
 }
 
 // Define Challenges:
@@ -197,7 +197,6 @@ class App extends React.Component {
 		var arr = [];
 
 		var userIndex;
-    var goblinIndex;
 		var initMap = [];
 
 		// Render an array of 2000 items based on specified dimensions:
@@ -209,7 +208,6 @@ class App extends React.Component {
 			if (rand !== 1) { rand = 0; }
 
 			var user = 0;
-      var goblin = 0;
 
 			// Boss and User positions are hard-coded; all other cells are distributed randomly:
 
@@ -218,13 +216,11 @@ class App extends React.Component {
 			else if (a === 68 || a === 69 || a === 88 || a === 89) { rand = 'boss' }
 			// Set user position:
 			else if (a === 1890) { rand = 0; user = 1; userIndex = a;}
-      else if (a === 1891) { rand = 0; goblin = 1; goblinIndex = a;}
 
 			arr[a] = {
 				cellSize: gridWidth,
 				cellType: rand,
-				user: user,
-        goblin: goblin
+				user: user
 			};
 
 		}
@@ -304,7 +300,6 @@ class App extends React.Component {
 
 		this.setState({
 			userLocation: userIndex,
-      goblinLocation: goblinIndex,
 			map: arr,
 			renderMap: initMap
 		});
@@ -1777,8 +1772,7 @@ class Game extends React.Component {
 			else if (grid.cellType === 'Webpack') { gridColor = { background: "url(" + skills.Webpack[0] + ")", backgroundSize: 'cover' } }
 
 			// Add user to user grid:
-			if (grid.user === 1) { gridColor = { background: "url('http://i1361.photobucket.com/albums/r662/bonham000/Roguelike/fcc_puck_zps7ddvum7q.png')", backgroundSize: '51px 51px' } }
-      if (grid.goblin === 1) { gridColor = { background: 'yellow' } }
+			if (grid.user === 1) { gridColor = { background: "url('https://robohash.org/alex')", backgroundSize: '51px 51px' } }
 			
       if ((i >= 6 && i <= 14) || (i >= 26 && i <= 34) || (i >= 46 && i <= 54) || (i >= 66 && i <= 74) || (i >= 86 && i <= 94) || (i >= 106 && i <= 114)) {
         return (
