@@ -1021,17 +1021,11 @@ class App extends React.Component {
 						currentMap[newLocation].cellType = 0;
 
 						this.updateMap(currentMap, newLocation, offset);
-
 					}
-
 				}
-
 			}
-
 		}
-
 	}
-
 	}
   
   
