@@ -316,7 +316,7 @@ class App extends React.Component {
 			if (this.state.sound) { deathSound.play(); }
 			this.setState({
 				playing: false,
-				header: 'You were defeated! Don\'t forget to level up your skills before trying the advanced challenges!'
+				header: 'You died.'
 			});
 
 			document.getElementById('headerBar').style.backgroundColor = red;
