@@ -105,7 +105,7 @@ class App extends React.Component {
 			certifications: [],
 			level: 1,
 			header: 'Welcome, traveler.',
-      manualMove: false
+      manualMove: true
 		};
 
     this.attemptChallenge = this.attemptChallenge.bind(this);
@@ -509,47 +509,47 @@ class App extends React.Component {
   // Allow user to pause the game and speed up or slow down time:
   handleKeyPress(event) {
     if(this.state.manualMove) {
+      clearInterval(this.state.intervalID);
       this.manualMove(event);
     } else {
-    let speed = this.state.speed;
-    let paused = this.state.paused;
-    
-    // spacebar pauses and unpauses time
-    if (event.keyCode === 32) {  
-      if (paused) {
-        paused = false;
-        this.setState({speed: speed});
-        const intervalID = setInterval(this.handleAI, speed);
-        this.setState({intervalID: intervalID, paused: paused});
-      } else {
-        paused = true;
-        clearInterval(this.state.intervalID); 
-        this.setState({paused: paused});
+      let speed = this.state.speed;
+      let paused = this.state.paused;
+
+      // spacebar pauses and unpauses time
+      if (event.keyCode === 32) {  
+        if (paused) {
+          paused = false;
+          this.setState({speed: speed});
+          const intervalID = setInterval(this.handleAI, speed);
+          this.setState({intervalID: intervalID, paused: paused});
+        } else {
+          paused = true;
+          clearInterval(this.state.intervalID); 
+          this.setState({paused: paused});
+        }
       }
-    }
-    
-    // left arrow slows down time
-    if (event.keyCode === 37) {  
-      if (speed < 1000) {
-        speed += 100;  
-        this.setState({speed: speed});
-        clearInterval(this.state.intervalID);
-        const intervalID = setInterval(this.handleAI, speed);
-        this.setState({intervalID: intervalID});
-      }        
-      console.log(this.state.speed);
-    }
-    
-    // right arrow speeds up time
-    else if (event.keyCode === 39) { 
-      if (speed > 100) {
-        speed -= 100;
-        this.setState({speed: speed});
-        clearInterval(this.state.intervalID)
-        const intervalID = setInterval(this.handleAI, speed);
-        this.setState({intervalID: intervalID});
+
+      // left arrow slows down time
+      if (event.keyCode === 37) {  
+        if (speed < 1000) {
+          speed += 100;  
+          this.setState({speed: speed});
+          clearInterval(this.state.intervalID);
+          const intervalID = setInterval(this.handleAI, speed);
+          this.setState({intervalID: intervalID});
+        }        
       }
-      console.log(this.state.speed);
+
+      // right arrow speeds up time
+      else if (event.keyCode === 39) { 
+        if (speed > 100) {
+          speed -= 100;
+          this.setState({speed: speed});
+          clearInterval(this.state.intervalID);
+          const intervalID = setInterval(this.handleAI, speed);
+          this.setState({intervalID: intervalID});
+        }
+      }
     }
   }
   
@@ -736,6 +736,7 @@ class App extends React.Component {
       }
 
       if(direction === "down") {
+        newLocation = userLocation + 20;
         if (newLocation <= 2000) {
           if (offset < 120) {
             offset += 20;
@@ -745,56 +746,58 @@ class App extends React.Component {
           }
         }
       }
-      
-     // Calculate new location for player if the cell is empty:
-      if (currentMap[newLocation].cellType === 0) {
-        currentMap[userLocation].user = 0;
-        currentMap[newLocation].user = 1;
-        this.updateMap(currentMap, newLocation, offset);
-      }
-      
-      // If the cells is not empty, check is there is an item there.
-      // if there is, acquire the item and add it to the items array; then update the map:
-      else if (this.checkLocationForItem(currentMap[newLocation])) {
-        let currentSkills = this.state.skillItems.slice();
-        currentSkills[currentSkills.length] = skills[currentMap[newLocation].cellType][0];
+     
+      if(currentMap[newLocation]) {
+        // Calculate new location for player if the cell is empty:
+        if (currentMap[newLocation].cellType === 0) {
+          currentMap[userLocation].user = 0;
+          currentMap[newLocation].user = 1;
+          this.updateMap(currentMap, newLocation, offset);
+        }
 
-        this.setState({
-          header: skills[currentMap[newLocation].cellType][1],
-          skillItems: currentSkills
-        });
+        // If the cells is not empty, check is there is an item there.
+        // if there is, acquire the item and add it to the items array; then update the map:
+        else if (this.checkLocationForItem(currentMap[newLocation])) {
+          let currentSkills = this.state.skillItems.slice();
+          currentSkills[currentSkills.length] = skills[currentMap[newLocation].cellType][0];
 
-        if (this.state.skillItems.length === 25) {
-          setTimeout(function() {
-            let attackLevel = this.state.attackPower;
-            let exp = this.state.experience;
-            let lifeHP = this.state.life;
-            let level = this.state.level;
-            if (this.state.sound) { bonusSound.play(); }
-            this.setState({
-              header: 'You have made a ton of friends. You are extremely popular.',
-              attackPower: attackLevel + 2500,
-              experience: exp + 15000,
-              life: lifeHP + 15000,
-              level: level + 50
-            });
-          }.bind(this), 250);
-        };
-        
-        // update the map
-        currentMap[userLocation].user = 0;
-        currentMap[newLocation].user = 1;
-        currentMap[newLocation].cellType = 0;
-        this.updateMap(currentMap, newLocation, offset);      
-      }
-      
-      // If it is not an item, there should be a challenge; handle the challenge:
-      else if (this.checkLocationForChallenge(currentMap[newLocation])) {
-        if (this.attemptChallenge(currentMap[newLocation], newLocation)) {
+          this.setState({
+            header: skills[currentMap[newLocation].cellType][1],
+            skillItems: currentSkills
+          });
+
+          if (this.state.skillItems.length === 25) {
+            setTimeout(function() {
+              let attackLevel = this.state.attackPower;
+              let exp = this.state.experience;
+              let lifeHP = this.state.life;
+              let level = this.state.level;
+              if (this.state.sound) { bonusSound.play(); }
+              this.setState({
+                header: 'You have made a ton of friends. You are extremely popular.',
+                attackPower: attackLevel + 2500,
+                experience: exp + 15000,
+                life: lifeHP + 15000,
+                level: level + 50
+              });
+            }.bind(this), 250);
+          };
+
+          // update the map
           currentMap[userLocation].user = 0;
           currentMap[newLocation].user = 1;
           currentMap[newLocation].cellType = 0;
-          this.updateMap(currentMap, newLocation, offset);
+          this.updateMap(currentMap, newLocation, offset);      
+        }
+
+        // If it is not an item, there should be a challenge; handle the challenge:
+        else if (this.checkLocationForChallenge(currentMap[newLocation])) {
+          if (this.attemptChallenge(currentMap[newLocation], newLocation)) {
+            currentMap[userLocation].user = 0;
+            currentMap[newLocation].user = 1;
+            currentMap[newLocation].cellType = 0;
+            this.updateMap(currentMap, newLocation, offset);
+          }
         }
       }
     }
