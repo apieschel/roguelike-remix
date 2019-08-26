@@ -117,6 +117,7 @@ class App extends React.Component {
 		this.handleDeath = this.handleDeath.bind(this);
 		this.handleSound = this.handleSound.bind(this);
     this.manualMove = this.manualMove.bind(this);
+    this.checkLocationForItem = this.checkLocationForItem.bind(this);
 	}
   
 	// Allow the user to mute the sound:
@@ -548,41 +549,6 @@ class App extends React.Component {
   
 	// Function to handle user movement based on arrow key input:
 	manualMove(event) {
-		// Check target location to see if there is an item there, if so, handle the challenge:
-		var checkLocationForItem = function(locationObj) {
-			var a = [];
-			for (var key in skills) {
-				a.push(key);
-			}
-			// Add attack  and exp points if user picks up an item based on current attack and exp points:
-			var raiseAttack = function() {
-					var currentAttack = this.state.attackPower;
-					var newAttack;
-					var currentHP = this.state.life;
-					var newHP;
-					if (currentAttack < 100) { newAttack = currentAttack + 15; newHP = currentHP + (150 - Math.round(Math.random() * 50)); }
-					else if (currentAttack < 250) { newAttack = currentAttack + 25; newHP = currentHP + (300 - Math.round(Math.random() * 150)); }
-					else if (currentAttack < 500) { newAttack = currentAttack + 75; newHP = currentHP + (500 - Math.round(Math.random() * 200)); }
-					else if (currentAttack < 1000) { newAttack = currentAttack + 125; newHP = currentHP + (600 - Math.round(Math.random() * 500)); }
-					else if (currentAttack >= 1000) { newAttack = currentAttack + 150; newHP = currentHP + (800 - Math.round(Math.random() * 600)); }
-					var experience = this.state.experience;
-					var newExp = +experience + ( 5000 - Math.round(Math.random() * 2500) );
-					this.setState({
-						attackPower: newAttack,
-						experience: newExp,
-						life: newHP
-					});
-			}.bind(this);
-			for (var i = 0; i < a.length; i++) {
-				if (a[i] === locationObj.cellType) {
-					raiseAttack();
-					if (this.state.skillItems.length <= 23) {
-						if (this.state.sound) { newItemSound.play(); }
-					}
-					return true; }
-			}
-			return false;
-		}.bind(this);
 
 		// Check target location to see if there is a challenge there, if so, handle the challenge:
 		function checkLocationForChallenge(locationObj) {
@@ -737,7 +703,7 @@ class App extends React.Component {
 			}
 
 			// If the cells is not empty, check is there is an item there, if there is, acquire the item and add it to the items array; then update the map:
-			else if (checkLocationForItem(currentMap[newLocation])) {
+			else if (this.checkLocationForItem(currentMap[newLocation])) {
 				var currentSkills = this.state.skillItems.slice();
 				currentSkills[currentSkills.length] = skills[currentMap[newLocation].cellType][0];
 				
@@ -811,7 +777,7 @@ class App extends React.Component {
 
 				}
 				
-				else if (checkLocationForItem(currentMap[newLocation])) {
+				else if (this.checkLocationForItem(currentMap[newLocation])) {
 					currentSkills = this.state.skillItems.slice();
 					currentSkills[currentSkills.length] = skills[currentMap[newLocation].cellType][0];
 					
@@ -888,7 +854,7 @@ class App extends React.Component {
 
 			}
 			
-			else if (checkLocationForItem(currentMap[newLocation])) {
+			else if (this.checkLocationForItem(currentMap[newLocation])) {
 				currentSkills = this.state.skillItems.slice();
 				currentSkills[currentSkills.length] = skills[currentMap[newLocation].cellType][0];
 				
@@ -968,7 +934,7 @@ class App extends React.Component {
 
 				}
 				
-				else if (checkLocationForItem(currentMap[newLocation])) {
+				else if (this.checkLocationForItem(currentMap[newLocation])) {
 					currentSkills = this.state.skillItems.slice();
 					currentSkills[currentSkills.length] = skills[currentMap[newLocation].cellType][0];
 					
@@ -1023,56 +989,56 @@ class App extends React.Component {
 	}
 	}
   
+  // Check target location to see if there is an item there, if so, handle the challenge:
+  checkLocationForItem(locationObj) {
+    var a = [];
+    for (var key in skills) {
+      a.push(key);
+    }
+    // Add attack  and exp points if user picks up an item based on current attack and exp points:
+    var raiseAttack = function() {
+        var currentAttack = this.state.attackPower;
+        var newAttack;
+        var currentHP = this.state.life;
+        var newHP;
+        if (currentAttack < 100) { newAttack = currentAttack + 15; newHP = currentHP + (150 - Math.round(Math.random() * 50)); }
+        else if (currentAttack < 250) { newAttack = currentAttack + 25; newHP = currentHP + (300 - Math.round(Math.random() * 150)); }
+        else if (currentAttack < 500) { newAttack = currentAttack + 75; newHP = currentHP + (500 - Math.round(Math.random() * 200)); }
+        else if (currentAttack < 1000) { newAttack = currentAttack + 125; newHP = currentHP + (600 - Math.round(Math.random() * 500)); }
+        else if (currentAttack >= 1000) { newAttack = currentAttack + 150; newHP = currentHP + (800 - Math.round(Math.random() * 600)); }
+        var experience = this.state.experience;
+        var newExp = +experience + ( 5000 - Math.round(Math.random() * 2500) );
+        this.setState({
+          attackPower: newAttack,
+          experience: newExp,
+          life: newHP
+        });
+    }.bind(this);
+    for (var i = 0; i < a.length; i++) {
+      if (a[i] === locationObj.cellType) {
+        raiseAttack();
+        if (this.state.skillItems.length <= 23) {
+          if (this.state.sound) { newItemSound.play(); }
+        }
+        return true; }
+    }
+    return false;
+  }
+  
+  // Check target location to see if there is a challenge there, if so, handle the challenge:
+  checkLocationForChallenge(locationObj) {
+    const cell = locationObj.cellType;
+    if (cell === 'front' || cell === 'viz' || cell === 'back'){
+      return true;
+    }
+    else if (cell === 'boss') {
+      return true;
+    }
+    else return false;
+  }
+
   // Function to handle AI movement patterns:
 	handleAI(event) {
-		// Check target location to see if there is an item there, if so, handle the challenge:
-		var checkLocationForItem = function(locationObj) {
-			var a = [];
-			for (var key in skills) {
-				a.push(key);
-			}
-			// Add attack  and exp points if user picks up an item based on current attack and exp points:
-			var raiseAttack = function() {
-					var currentAttack = this.state.attackPower;
-					var newAttack;
-					var currentHP = this.state.life;
-					var newHP;
-					if (currentAttack < 100) { newAttack = currentAttack + 15; newHP = currentHP + (150 - Math.round(Math.random() * 50)); }
-					else if (currentAttack < 250) { newAttack = currentAttack + 25; newHP = currentHP + (300 - Math.round(Math.random() * 150)); }
-					else if (currentAttack < 500) { newAttack = currentAttack + 75; newHP = currentHP + (500 - Math.round(Math.random() * 200)); }
-					else if (currentAttack < 1000) { newAttack = currentAttack + 125; newHP = currentHP + (600 - Math.round(Math.random() * 500)); }
-					else if (currentAttack >= 1000) { newAttack = currentAttack + 150; newHP = currentHP + (800 - Math.round(Math.random() * 600)); }
-					var experience = this.state.experience;
-					var newExp = +experience + ( 5000 - Math.round(Math.random() * 2500) );
-					this.setState({
-						attackPower: newAttack,
-						experience: newExp,
-						life: newHP
-					});
-			}.bind(this);
-			for (var i = 0; i < a.length; i++) {
-				if (a[i] === locationObj.cellType) {
-					raiseAttack();
-					if (this.state.skillItems.length <= 23) {
-						if (this.state.sound) { newItemSound.play(); }
-					}
-					return true; }
-			}
-			return false;
-		}.bind(this);
-
-		// Check target location to see if there is a challenge there, if so, handle the challenge:
-		function checkLocationForChallenge(locationObj) {
-			var cell = locationObj.cellType;
-			if (cell === 'front' || cell === 'viz' || cell === 'back'){
-				return true;
-			}
-			else if (cell === 'boss') {
-				return true;
-			}
-			else return false;
-		}
-
 		// Calculate parameters for battle function if player encounters a challenge:
 		var attemptChallenge = function(locationObj, newLocation) {
 
@@ -1218,7 +1184,7 @@ class App extends React.Component {
 			}
 
 			// If the cells is not empty, check is there is an item there, if there is, acquire the item and add it to the items array; then update the map:
-			else if (checkLocationForItem(currentMap[newLocation])) {
+			else if (this.checkLocationForItem(currentMap[newLocation])) {
 				var currentSkills = this.state.skillItems.slice();
 				currentSkills[currentSkills.length] = skills[currentMap[newLocation].cellType][0];
 				
@@ -1292,7 +1258,7 @@ class App extends React.Component {
 
 				}
 				
-				else if (checkLocationForItem(currentMap[newLocation])) {
+				else if (this.checkLocationForItem(currentMap[newLocation])) {
 					currentSkills = this.state.skillItems.slice();
 					currentSkills[currentSkills.length] = skills[currentMap[newLocation].cellType][0];
 					
@@ -1369,7 +1335,7 @@ class App extends React.Component {
 
 			}
 			
-			else if (checkLocationForItem(currentMap[newLocation])) {
+			else if (this.checkLocationForItem(currentMap[newLocation])) {
 				currentSkills = this.state.skillItems.slice();
 				currentSkills[currentSkills.length] = skills[currentMap[newLocation].cellType][0];
 				
@@ -1449,7 +1415,7 @@ class App extends React.Component {
 
 				}
 				
-				else if (checkLocationForItem(currentMap[newLocation])) {
+				else if (this.checkLocationForItem(currentMap[newLocation])) {
 					currentSkills = this.state.skillItems.slice();
 					currentSkills[currentSkills.length] = skills[currentMap[newLocation].cellType][0];
 					
