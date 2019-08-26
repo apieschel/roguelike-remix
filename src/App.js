@@ -749,11 +749,10 @@ class App extends React.Component {
      
       // check if the new location exists
       if(currentMap[newLocation]) {
-        currentMap[userLocation].user = 0;
-        currentMap[newLocation].user = 1;
-        
-        // Simply update the map if the cell is empty:
+        // Calculate new location for player if the cell is empty:
         if (currentMap[newLocation].cellType === 0) {
+          currentMap[userLocation].user = 0;
+          currentMap[newLocation].user = 1;
           this.updateMap(currentMap, newLocation, offset);
         }
 
@@ -785,6 +784,9 @@ class App extends React.Component {
             }.bind(this), 250);
           };
 
+          // update the map
+          currentMap[userLocation].user = 0;
+          currentMap[newLocation].user = 1;
           currentMap[newLocation].cellType = 0;
           this.updateMap(currentMap, newLocation, offset);      
         }
