@@ -118,6 +118,7 @@ class App extends React.Component {
 		this.handleSound = this.handleSound.bind(this);
     this.manualMove = this.manualMove.bind(this);
 	}
+  
 	// Allow the user to mute the sound:
 	handleSound() {
 		if (this.state.sound) {
@@ -131,12 +132,14 @@ class App extends React.Component {
 			});
 		};
 	};
+  
 	startGame() {
 		if (this.state.sound) { bonusSound.play(); }
 		this.setState({
 			about: false
 		});
 	}
+  
 	resetGame() {
 		// location.reload();
 		document.getElementById('headerBar').style.background = headerBackground;
@@ -179,6 +182,7 @@ class App extends React.Component {
 		challenges['back-end-5'][0]  = 2000;
 
 	}
+  
 	// Function to generate map data on initial render of page:
 	generateMap() {
 		var w = 1000;
@@ -292,13 +296,10 @@ class App extends React.Component {
 			map: arr,
 			renderMap: initMap
 		});
-
 	}
-  
   
 	// Take in new map data and user location to render a new map to the page upon user movement:
 	updateMap(data, newLocation, offset) {
-
 		var gameMap = this.state.map;
 		var newMap = gameMap.slice(newLocation - offset, newLocation + (240 - offset));
 
@@ -308,8 +309,7 @@ class App extends React.Component {
 			renderMap: newMap
 		});
 	}
-  
-  
+    
 	// If player is defeated, alert Gameover and display the replay screen:
 	handleDeath() {
 			console.log('Player died!');
@@ -325,14 +325,11 @@ class App extends React.Component {
 				this.setState({
 					replay: true
 				});
-			}.bind(this), 3000);
-			
+			}.bind(this), 3000);			
 	}
-  
-  
+   
 	// Take battle parameters and render outcome of any battle:
 	handleBattle(challengeID, damage, userHP, attack) {
-
 		if (this.state.sound) { hitSound.play() }
 
 		var level = this.state.level;
@@ -502,10 +499,9 @@ class App extends React.Component {
 			this.handleDeath();
 			return false;
 		}
-
 	}
   
-  
+  // Allow user to pause the game and speed up or slow down time:
   handleKeyPress(event) {
     console.log(event);
     let speed = this.state.speed;
@@ -552,7 +548,6 @@ class App extends React.Component {
   
 	// Function to handle user movement based on arrow key input:
 	manualMove(event) {
-
 		// Check target location to see if there is an item there, if so, handle the challenge:
 		var checkLocationForItem = function(locationObj) {
 			var a = [];
@@ -1028,11 +1023,8 @@ class App extends React.Component {
 	}
 	}
   
-  
-  
-  // Function to handle AI:
+  // Function to handle AI movement patterns:
 	handleAI(event) {
-
 		// Check target location to see if there is an item there, if so, handle the challenge:
 		var checkLocationForItem = function(locationObj) {
 			var a = [];
@@ -1527,8 +1519,7 @@ class App extends React.Component {
     const intervalID = setInterval(this.handleAI, this.state.speed);
     this.setState({intervalID: intervalID});
 	}
-  
-  
+   
 	// Main render function of root component:
 	render() {
 		return (
