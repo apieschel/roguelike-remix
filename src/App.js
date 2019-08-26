@@ -7,16 +7,16 @@ import Game from "./Game";
 import SideBar from "./SideBar";
 
 // Define sound effects:
+const bonusSound = new Audio('http://soundbible.com/mp3/Music_Box-Big_Daddy-1389738694.mp3');
 const challengeSound = new Audio('http://soundbible.com/mp3/Computer_Magic-Microsift-1901299923.mp3');
+const deathSound = new Audio('http://soundbible.com/mp3/Grenade-SoundBible.com-1777900486.mp3');
 const hitSound = new Audio('http://soundbible.com/mp3/Jab-SoundBible.com-1806727891.mp3');
 const newItemSound = new Audio('http://soundbible.com/mp3/Ting-Popup_Pixels-349896185.mp3');
-const bonusSound = new Audio('http://soundbible.com/mp3/Music_Box-Big_Daddy-1389738694.mp3');
-const deathSound = new Audio('http://soundbible.com/mp3/Grenade-SoundBible.com-1777900486.mp3');
 const winner = new Audio('http://soundbible.com/mp3/Triangle Dinner Bell-SoundBible.com-220988408.mp3');
 
 // Define colors:
-const dark = '#0084ff';
 const brightBlue = '#00dffc';
+const dark = '#0084ff';
 const headerBackground = '#19281E';
 const red = '#FF0000';
 
@@ -83,29 +83,29 @@ class App extends React.Component {
 	constructor() {
 		super();
 		this.state = {
-      intervalID: 0,
-      speed: 100,
-      paused: false,
-			sound: false,
 			about: false,
-			replay: false,
-			playing: true,
-			game: 'alive',
-			userLocation: '',
-			offset: 130,
-			map: [],
-			renderMap: [],
-			frontEndChallenges: [],
-			dataVizChallenges: [],
-			backEndChallenges: [],
-			skillItems: [],
-			life: 5000,
 			attackPower: 50,
-			experience: 0,
+			backEndChallenges: [],
 			certifications: [],
-			level: 1,
+			dataVizChallenges: [],
+			experience: 0,
+			frontEndChallenges: [],
+			game: 'alive',
 			header: 'Welcome, traveler.',
-      manualMove: true
+			level: 1,
+			life: 5000,
+      intervalID: 0,
+      manualMove: true,
+			map: [],
+			offset: 130,
+      paused: false,
+			playing: true,
+		  renderMap: [],
+			replay: false,
+			skillItems: [],
+			sound: false,
+      speed: 100,
+			userLocation: ''
 		};
 
     this.attemptChallenge = this.attemptChallenge.bind(this);
