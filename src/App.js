@@ -707,9 +707,31 @@ class App extends React.Component {
     let currentMap = this.state.map.slice();
 		let offset = this.state.offset;
 		let userLocation = this.state.userLocation;
+    let newLocation;
     let max = 5;
     let min = 1;
-  }
+      
+    if(direction === "left") {
+      newLocation = userLocation - 1;
+      offset -= 1;
+    }
+
+    if(direction === "up") {
+      newLocation = userLocation - 20;
+      if (newLocation >= 0) {
+        
+      }
+    }
+
+    if(direction === "right") {
+
+    }
+
+    if(direction === "down") {
+
+    }
+	}
+  
 
   // Function to handle AI movement patterns:
 	handleAI() {
