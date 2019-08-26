@@ -710,28 +710,82 @@ class App extends React.Component {
     let newLocation;
     let max = 5;
     let min = 1;
-      
-    if(direction === "left") {
-      newLocation = userLocation - 1;
-      offset -= 1;
-    }
-
-    if(direction === "up") {
-      newLocation = userLocation - 20;
-      if (newLocation >= 0) {
-        
+    
+    if(this.state.playing) {
+      if(direction === "left") {
+        newLocation = userLocation - 1;
+        offset -= 1;
       }
-    }
 
-    if(direction === "right") {
+      if(direction === "up") {
+        newLocation = userLocation - 20;
+        if (newLocation >= 0) {
+          if (offset > 120) {
+            offset -= 20;
+          }
+          else if (newLocation <= 130) {
+            offset = newLocation;
+          }
+        }
+      }
 
-    }
+      if(direction === "right") {
 
-    if(direction === "down") {
+      }
 
+      if(direction === "down") {
+
+      }
+         
+      // If the cells is not empty, check is there is an item there.
+      // if there is, acquire the item and add it to the items array; then update the map:
+      if (this.checkLocationForItem(currentMap[newLocation])) {
+        let currentSkills = this.state.skillItems.slice();
+        currentSkills[currentSkills.length] = skills[currentMap[newLocation].cellType][0];
+
+        this.setState({
+          header: skills[currentMap[newLocation].cellType][1],
+          skillItems: currentSkills
+        });
+
+        if (this.state.skillItems.length === 25) {
+          setTimeout(function() {
+            let attackLevel = this.state.attackPower;
+            let exp = this.state.experience;
+            let lifeHP = this.state.life;
+            let level = this.state.level;
+            if (this.state.sound) { bonusSound.play(); }
+            this.setState({
+              header: 'You have made a ton of friends. You are extremely popular.',
+              attackPower: attackLevel + 2500,
+              experience: exp + 15000,
+              life: lifeHP + 15000,
+              level: level + 50
+            });
+          }.bind(this), 250);
+        };
+
+        currentMap[newLocation].cellType = 0;      
+      }
+      
+      // If it is not an item, there should be a challenge; handle the challenge:
+      else if (this.checkLocationForChallenge(currentMap[newLocation])) {
+        if (this.attemptChallenge(currentMap[newLocation], newLocation)) {
+          currentMap[userLocation].user = 0;
+          currentMap[newLocation].user = 1;
+          currentMap[newLocation].cellType = 0;
+          offset -= 1;
+          this.updateMap(currentMap, newLocation, offset);
+
+        }
+      }
+      
+      // update the map
+      currentMap[userLocation].user = 0;
+      currentMap[newLocation].user = 1;
+      this.updateMap(currentMap, newLocation, offset);
     }
 	}
-  
 
   // Function to handle AI movement patterns:
 	handleAI() {
