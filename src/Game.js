@@ -38,10 +38,10 @@ const skills = {
 // Sliced game data array is mapped through and all the cell items are given a background based on their contents, e.g. empty, solid, player, challenge, item, boss, barrier.
 class Game extends React.Component {
 	render() {
-		var gridStyle, gridColor;
-		var mapData = this.props.gameMap;
+		let gridStyle, gridColor;
+		const mapData = this.props.gameMap;
 
-		var renderMap = mapData.map( (grid, i) => {
+		const renderMap = mapData.map( (grid, i) => {
 
 			gridStyle = { width: grid.cellSize, height: grid.cellSize }; // Set cell sizes based on the pre-set dimensions
 
