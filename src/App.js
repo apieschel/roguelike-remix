@@ -747,11 +747,13 @@ class App extends React.Component {
         }
       }
      
+      // check if the new location exists
       if(currentMap[newLocation]) {
-        // Calculate new location for player if the cell is empty:
+        currentMap[userLocation].user = 0;
+        currentMap[newLocation].user = 1;
+        
+        // Simply update the map if the cell is empty:
         if (currentMap[newLocation].cellType === 0) {
-          currentMap[userLocation].user = 0;
-          currentMap[newLocation].user = 1;
           this.updateMap(currentMap, newLocation, offset);
         }
 
@@ -783,9 +785,6 @@ class App extends React.Component {
             }.bind(this), 250);
           };
 
-          // update the map
-          currentMap[userLocation].user = 0;
-          currentMap[newLocation].user = 1;
           currentMap[newLocation].cellType = 0;
           this.updateMap(currentMap, newLocation, offset);      
         }
@@ -805,46 +804,42 @@ class App extends React.Component {
 
   // Function to handle AI movement patterns:
 	handleAI() {
-    let arrow;
+    const rand = Math.floor(Math.random() * (5 - 1) + 1); 
     
-    const randNum = Math.floor(Math.random() * (5 - 1) + 1); 
-    
-    if (randNum === 1) { arrow = 37 }
-    else if (randNum === 2) { arrow = 38 }
-    else if (randNum === 3) { arrow = 39 }
-    else if (randNum === 4) { arrow = 40 }
-    else { arrow = 37 }
-
-		if (arrow === 37) {  
-			this.moveCreature("left");
-		}	else if (arrow === 38) {
-      this.moveCreature("up");
-		}	else if (arrow === 39) {
-      this.moveCreature("right");
-		} else if (arrow === 40) {
-      this.moveCreature("down");
-		}
+    switch(rand) {
+      case 1:
+			  this.moveCreature("left");
+        break;
+      case 2:
+        this.moveCreature("up");
+        break;
+      case 3:
+        this.moveCreature("right");
+        break;
+      case 4:
+        this.moveCreature("down");
+        break;
+      default:
+    }
 	}
 
   // Function to handle user movement based on arrow key input:
 	manualMove(event) {
-    let arrow;
-    
-    if (event === 37) { arrow = 37 }
-    else if (event === 38) { arrow = 38 }
-    else if (event === 39) { arrow = 39 }
-    else if (event === 40) { arrow = 40 }
-    else { arrow = event.keyCode; event.preventDefault(); }
-
-		if (arrow === 37) {
-      this.moveCreature("left");
-		}	else if (arrow === 38) {
-      this.moveCreature("up");
-		} else if (arrow === 39) {
-      this.moveCreature("right");
-		}	else if (arrow === 40) {
-		  this.moveCreature("down");
-	  }
+    switch(event.keyCode) {
+      case 37:
+        this.moveCreature("left");
+        break;
+      case 38:
+        this.moveCreature("up");
+        break;
+      case 39:
+        this.moveCreature("right");
+        break;
+      case 40:
+		    this.moveCreature("down");
+        break;
+      default:
+    }
 	}
   
 	// Add event listeners to detect user movement:
